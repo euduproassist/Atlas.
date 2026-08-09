@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atlas University - My Documents</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1d60d8;
+            --primary-blue-hover: #154ec2;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --border-color: #e2e8f0;
+            --icon-bg: #e0edff;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            
+            /* Status Badge Colors */
+            --status-green-bg: #e6f7ed;
+            --status-green-text: #16a34a;
+            --status-blue-bg: #e0edff;
+            --status-blue-text: #1d60d8;
+            --status-warning-bg: #fef3c7;
+            --status-warning-text: #d97706;
+            --status-warning-border: #fef08a;
+            --status-gray-bg: #f1f5f9;
+            --status-gray-text: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Header Navigation */
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: clamp(12px, 1.2vw, 20px) clamp(16px, 4vw, 40px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo img {
+            height: clamp(32px, 2.5vw, 42px);
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-text h2 {
+            font-size: clamp(1rem, 1.2vw, 1.3rem);
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .brand-text p {
+            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: clamp(36px, 2.5vw, 42px);
+            height: clamp(36px, 2.5vw, 42px);
+            background: #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: clamp(1.1rem, 1.3vw, 1.4rem);
+        }
+
+        .user-name {
+            font-size: clamp(0.85rem, 0.95vw, 1rem);
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .user-profile i {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Main Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* Sidebar Navigation */
+        aside.sidebar {
+            width: clamp(240px, 18vw, 280px);
+            background-color: #ffffff;
+            border-right: 1px solid var(--border-color);
+            padding: clamp(20px, 2vw, 32px) clamp(12px, 1.2vw, 20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: clamp(0.85rem, 0.9vw, 0.95rem);
+            transition: all 0.2s ease;
+        }
+
+        .nav-item a i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-item.active a {
+            background-color: var(--icon-bg);
+            color: var(--primary-blue);
+        }
+
+        .nav-item a:hover:not(.active) {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* Sidebar Help Card */
+        .sidebar-help-card {
+            background-color: var(--bg-light);
+            border-radius: 12px;
+            padding: clamp(16px, 1.5vw, 20px);
+            margin-top: 24px;
+        }
+
+        .help-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .help-header i {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+        }
+
+        .help-header h4 {
+            font-size: clamp(0.85rem, 0.95vw, 1rem);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .sidebar-help-card p {
+            font-size: clamp(0.75rem, 0.82vw, 0.88rem);
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .contact-support-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 16px;
+            background: #ffffff;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: clamp(0.8rem, 0.85vw, 0.9rem);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .contact-support-btn:hover {
+            background: var(--primary-blue);
+            color: #ffffff;
+        }
+
+        /* Mobile Help Card */
+        .mobile-help-card {
+            display: none;
+            background-color: var(--bg-light);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+
+        /* Main Content Viewport */
+        main.main-content {
+            flex: 1;
+            padding: clamp(20px, 3vw, 40px);
+            max-width: 900px;
+        }
+
+        .page-header {
+            margin-bottom: clamp(20px, 2.5vw, 28px);
+        }
+
+        .page-header h1 {
+            font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .page-header p {
+            font-size: clamp(0.85rem, 0.95vw, 1rem);
+            color: var(--text-muted);
+        }
+
+        /* Application Summary Card */
+        .status-summary-card {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: clamp(20px, 2.5vw, 24px) clamp(24px, 3vw, 36px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: clamp(24px, 3vw, 32px);
+            position: relative;
+        }
+
+        .status-summary-card::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            bottom: 20%;
+            left: 50%;
+            width: 1px;
+            background-color: var(--border-color);
+        }
+
+        .summary-box label {
+            display: block;
+            font-size: clamp(0.78rem, 0.85vw, 0.88rem);
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .summary-box .app-id-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .summary-box .app-id {
+            font-size: clamp(1.3rem, 1.7vw, 1.8rem);
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            color: var(--primary-blue);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: clamp(0.8rem, 0.88vw, 0.92rem);
+            font-weight: 600;
+        }
+
+        .status-badge.under-review {
+            background-color: var(--status-blue-bg);
+            color: var(--status-blue-text);
+        }
+
+        .status-badge.verified {
+            background-color: var(--status-green-bg);
+            color: var(--status-green-text);
+        }
+
+        .status-badge.replacement-needed {
+            background-color: var(--status-warning-bg);
+            color: var(--status-warning-text);
+        }
+
+        /* Submitted Documents Section */
+        .section-title {
+            font-size: clamp(1.1rem, 1.3vw, 1.3rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .documents-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        /* Document Item Accordion Card */
+        .doc-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .doc-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.15s ease;
+        }
+
+        .doc-card-header:hover {
+            background-color: #fafbfc;
+        }
+
+        .doc-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .doc-icon-wrapper {
+            width: 44px;
+            height: 44px;
+            background-color: var(--icon-bg);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .doc-details h4 {
+            font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .doc-details p {
+            font-size: clamp(0.78rem, 0.85vw, 0.88rem);
+            color: var(--text-muted);
+        }
+
+        .doc-status-side {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .chevron-icon {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            transition: transform 0.25s ease;
+        }
+
+        .doc-card.open .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Expandable Accordion Body */
+        .doc-card-body {
+            display: none;
+            padding: 0 24px 24px 24px;
+            border-top: 1px solid transparent;
+        }
+
+        .doc-card.open .doc-card-body {
+            display: block;
+        }
+
+        /* Reason Callout Box */
+        .reason-box {
+            background-color: #fefce8;
+            border: 1px solid #fef08a;
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+            margin-bottom: 24px;
+        }
+
+        .reason-icon {
+            width: 24px;
+            height: 24px;
+            background: #fef3c7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--status-warning-text);
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .reason-text {
+            font-size: clamp(0.85rem, 0.9vw, 0.95rem);
+            color: #854d0e;
+        }
+
+        .reason-text strong {
+            color: #713f12;
+            font-weight: 700;
+        }
+
+        /* Upload Area */
+        .upload-section-title {
+            font-size: clamp(0.9rem, 1vw, 1.02rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .upload-subtitle {
+            font-size: clamp(0.78rem, 0.85vw, 0.88rem);
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .dropzone-box {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 32px 20px;
+            text-align: center;
+            background-color: #fafbfc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .dropzone-box:hover {
+            border-color: var(--primary-blue);
+            background-color: #f0f5ff;
+        }
+
+        .cloud-icon {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 2px;
+        }
+
+        .dropzone-text {
+            font-size: clamp(0.85rem, 0.9vw, 0.95rem);
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .dropzone-or {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .choose-file-btn {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: background-color 0.2s ease;
+        }
+
+        .choose-file-btn:hover {
+            background-color: var(--bg-light);
+        }
+
+        .file-format-info {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .upload-action-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .btn-submit-upload {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: clamp(0.85rem, 0.92vw, 0.98rem);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-submit-upload:hover {
+            background-color: var(--primary-blue-hover);
+        }
+
+        /* Bottom Important Info Box */
+        .important-notice-banner {
+            background-color: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .notice-info-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: serif;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 1.05rem;
+            flex-shrink: 0;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .notice-content h5 {
+            font-size: clamp(0.88rem, 0.95vw, 1rem);
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 2px;
+        }
+
+        .notice-content p {
+            font-size: clamp(0.8rem, 0.88vw, 0.92rem);
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        /* Responsive Mechanics */
+        @media (max-width: 850px) {
+            .dashboard-layout {
+                flex-direction: column;
+            }
+
+            aside.sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px;
+            }
+
+            .nav-list {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 8px;
+                scroll-behavior: smooth;
+            }
+
+            .nav-item a {
+                white-space: nowrap;
+            }
+
+            .sidebar-help-card {
+                display: none;
+            }
+
+            .mobile-help-card {
+                display: block;
+            }
+
+            main.main-content {
+                padding: 20px 16px;
+            }
+
+            .status-summary-card {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .status-summary-card::before {
+                display: none;
+            }
+
+            .doc-card-header {
+                padding: 16px;
+            }
+
+            .doc-status-side {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-content">
+            <div class="brand-logo">
+                <img src="../assets/uni-logo.png" alt="Atlas University Logo">
+                <div class="brand-text">
+                    <h2>ATLAS UNIVERSITY</h2>
+                    <p>Applicant Portal</p>
+                </div>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="user-name">Paul</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <ul class="nav-list" id="mainNav">
+                <li class="nav-item">
+                    <a href="#"><i class="fas fa-chart-line"></i> Application Status</a>
+                </li>
+                <li class="nav-item active" id="documentsTab">
+                    <a href="#"><i class="far fa-file-alt"></i> Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#"><i class="far fa-credit-card"></i> Payment</a>
+                </li>
+                <li class="nav-item" id="acceptanceTab">
+                    <a href="#"><i class="far fa-envelope"></i> Acceptance Letter</a>
+                </li>
+            </ul>
+
+            <div class="sidebar-help-card">
+                <div class="help-header">
+                    <i class="fas fa-headset"></i>
+                    <h4>Need Help?</h4>
+                </div>
+                <p>If you need assistance, contact our support team.</p>
+                <a href="#" class="contact-support-btn">Contact Support</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Viewport -->
+        <main class="main-content">
+            
+            <section class="page-header">
+                <h1>My Documents</h1>
+                <p>View the status of your submitted documents.</p>
+            </section>
+
+            <!-- Top Application Summary Block -->
+            <section class="status-summary-card">
+                <div class="summary-box">
+                    <label>Application Number</label>
+                    <div class="app-id-container">
+                        <span class="app-id">ATL-2026-004821</span>
+                        <button class="copy-btn" title="Copy ID"><i class="far fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="summary-box">
+                    <label>Application Status</label>
+                    <div>
+                        <span class="status-badge under-review">
+                            <i class="far fa-clock"></i> Under Review
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submitted Documents Section -->
+            <section>
+                <h3 class="section-title">Submitted Documents</h3>
+                
+                <div class="documents-container">
+                    
+                    <!-- Document 1: ID -->
+                    <div class="doc-card">
+                        <div class="doc-card-header" onclick="toggleAccordion(this)">
+                            <div class="doc-info">
+                                <div class="doc-icon-wrapper">
+                                    <i class="far fa-id-card"></i>
+                                </div>
+                                <div class="doc-details">
+                                    <h4>ID</h4>
+                                    <p>Uploaded on 15 May 2026</p>
+                                </div>
+                            </div>
+                            <div class="doc-status-side">
+                                <span class="status-badge verified">
+                                    <i class="far fa-check-circle"></i> Verified
+                                </span>
+                                <i class="fas fa-chevron-down chevron-icon"></i>
+                            </div>
+                        </div>
+                        <div class="doc-card-body">
+                            <!-- Expandable preview or details if needed -->
+                        </div>
+                    </div>
+
+                    <!-- Document 2: Matric Results -->
+                    <div class="doc-card">
+                        <div class="doc-card-header" onclick="toggleAccordion(this)">
+                            <div class="doc-info">
+                                <div class="doc-icon-wrapper">
+                                    <i class="far fa-file-code"></i>
+                                </div>
+                                <div class="doc-details">
+                                    <h4>Matric Results</h4>
+                                    <p>Uploaded on 15 May 2026</p>
+                                </div>
+                            </div>
+                            <div class="doc-status-side">
+                                <span class="status-badge verified">
+                                    <i class="far fa-check-circle"></i> Verified
+                                </span>
+                                <i class="fas fa-chevron-down chevron-icon"></i>
+                            </div>
+                        </div>
+                        <div class="doc-card-body">
+                            <!-- Expandable preview or details if needed -->
+                        </div>
+                    </div>
+
+                    <!-- Document 3: Proof of Payment (Expanded) -->
+                    <div class="doc-card open">
+                        <div class="doc-card-header" onclick="toggleAccordion(this)">
+                            <div class="doc-info">
+                                <div class="doc-icon-wrapper">
+                                    <i class="far fa-file-audio"></i>
+                                </div>
+                                <div class="doc-details">
+                                    <h4>Proof of Payment</h4>
+                                    <p>Uploaded on 15 May 2026</p>
+                                </div>
+                            </div>
+                            <div class="doc-status-side">
+                                <span class="status-badge replacement-needed">
+                                    <i class="fas fa-exclamation-triangle"></i> Needs Replacement
+                                </span>
+                                <i class="fas fa-chevron-down chevron-icon"></i>
+                            </div>
+                        </div>
+                        <div class="doc-card-body">
+                            <!-- Reason Banner -->
+                            <div class="reason-box">
+                                <div class="reason-icon">
+                                    <i class="fas fa-exclamation"></i>
+                                </div>
+                                <div class="reason-text">
+                                    <strong>Document Needs Replacement</strong><br>
+                                    <strong>Reason:</strong> Document is unclear.
+                                </div>
+                            </div>
+
+                            <!-- Upload Replacement Interface -->
+                            <h5 class="upload-section-title">Upload Replacement</h5>
+                            <p class="upload-subtitle">Please upload a clear and valid document.</p>
+
+                            <div class="dropzone-box" onclick="document.getElementById('fileInput').click()">
+                                <i class="fas fa-cloud-upload-alt cloud-icon"></i>
+                                <span class="dropzone-text">Drag and drop your file here</span>
+                                <span class="dropzone-or">or</span>
+                                <button type="button" class="choose-file-btn">Choose File</button>
+                                <span class="file-format-info">PDF, JPG or PNG (Max. 5MB)</span>
+                                <input type="file" id="fileInput" hidden>
+                            </div>
+
+                            <div class="upload-action-bar">
+                                <button type="button" class="btn-submit-upload">Upload Replacement</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Bottom Banner Notice -->
+                <div class="important-notice-banner">
+                    <div class="notice-info-circle">i</div>
+                    <div class="notice-content">
+                        <h5>Important</h5>
+                        <p>Please ensure all documents are clear and valid. Unclear or invalid documents may delay the review of your application.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mobile Support Card -->
+            <div class="mobile-help-card">
+                <div class="help-header">
+                    <i class="fas fa-headset"></i>
+                    <h4>Need Help?</h4>
+                </div>
+                <p>If you need assistance, contact our support team.</p>
+                <a href="#" class="contact-support-btn">Contact Support</a>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Automatic direct scroll to the Active navigation tab on mobile screens
+        window.addEventListener('DOMContentLoaded', () => {
+            const activeTab = document.getElementById('documentsTab');
+            if (activeTab) {
+                activeTab.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
+            }
+        });
+
+        // Toggle card expansion/collapse
+        function toggleAccordion(headerElement) {
+            const docCard = headerElement.closest('.doc-card');
+            docCard.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
