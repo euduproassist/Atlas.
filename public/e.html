@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atlas University - Application Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atlas University - Check Application Status</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -11,30 +11,11 @@
             --primary-blue: #1d60d8;
             --text-dark: #1e293b;
             --text-muted: #64748b;
-            --bg-light: #f4f7fc;
+            --bg-light: #f8fafc;
             --border-color: #e2e8f0;
             --icon-bg: #e0edff;
-            --card-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.03);
-        }
-
-        /* 
-           100% PROPORTIONAL ROOT SCALING
-           Controls base sizing dynamically via viewport width (vw) so there are no frozen upper caps.
-        */
-        html {
-            font-size: calc(13px + 0.35vw);
-        }
-
-        @media (min-width: 1920px) {
-            html {
-                font-size: calc(14px + 0.45vw);
-            }
-        }
-
-        @media (min-width: 2560px) {
-            html {
-                font-size: calc(16px + 0.55vw);
-            }
+            --card-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
+            --input-bg: #fcfdfe;
         }
 
         * {
@@ -48,7 +29,7 @@
             width: 100%;
             min-height: 100vh;
             overflow-x: hidden;
-            background-color: #ffffff;
+            background-color: #fdfefe;
             color: var(--text-dark);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
@@ -56,49 +37,50 @@
             flex-direction: column;
         }
 
-        /* Responsive Page Padding */
+        /* Truly Dynamic Fluid Container */
         .container {
             width: 100%;
             max-width: 100%;
             margin: 0;
-            padding: 0 4.5vw;
+            padding: 0 clamp(16px, 4vw, 80px);
         }
 
         /* Header Navigation */
         header {
             width: 100%;
             border-bottom: 1px solid var(--border-color);
-            padding: 1.25rem 0;
+            padding: clamp(12px, 1.5vw, 24px) 0;
+            background-color: #ffffff;
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 1rem;
+            gap: 16px;
         }
 
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 12px;
         }
 
         .brand-logo img {
-            height: 2.5rem;
+            height: clamp(32px, 3vw, 48px);
             width: auto;
             object-fit: contain;
         }
 
         .brand-text h2 {
-            font-size: 1.15rem;
+            font-size: clamp(1rem, 1.2vw, 1.4rem);
             font-weight: 800;
             color: var(--primary-blue);
-            letter-spacing: 0.03rem;
+            letter-spacing: 0.5px;
         }
 
         .brand-text p {
-            font-size: 0.75rem;
+            font-size: clamp(0.7rem, 0.8vw, 0.9rem);
             color: var(--text-muted);
             font-weight: 600;
         }
@@ -106,339 +88,341 @@
         .header-contact {
             display: flex;
             align-items: center;
-            gap: 2rem;
-            font-size: 0.85rem;
-            color: var(--text-dark);
+            gap: 8px;
+            font-size: clamp(0.85rem, 0.95vw, 1rem);
+            color: var(--text-muted);
             font-weight: 500;
         }
 
-        .header-contact div {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
         .header-contact i {
-            color: var(--primary-blue);
+            color: var(--text-muted);
         }
 
-        .header-contact a {
+        .header-contact strong {
             color: var(--text-dark);
-            text-decoration: none;
         }
 
         main.container {
             flex: 1;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 3rem 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3.5rem;
+            display: flex;
+            flex-direction: column;
             align-items: center;
         }
 
-        .hero-left h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            line-height: 1.15;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
+        /* Hero Banner Section */
+        .status-hero {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            background: linear-gradient(180deg, #f0f5ff 0%, #f8fafc 100%);
+            padding: clamp(30px, 4vw, 60px) clamp(16px, 4vw, 80px);
+            display: flex;
+            justify-content: center;
         }
 
-        .hero-left h1 span {
+        .status-hero-content {
+            width: 100%;
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: clamp(20px, 4vw, 60px);
+            align-items: center;
+        }
+
+        .status-hero-left h1 {
+            font-size: clamp(2rem, 3.2vw, 3.5rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.15;
+        }
+
+        .status-hero-left h1 span {
             color: var(--primary-blue);
             display: block;
         }
 
-        .hero-left p {
-            font-size: 1rem;
+        .status-hero-left p {
+            font-size: clamp(0.9rem, 1.05vw, 1.2rem);
             color: var(--text-muted);
-            margin-bottom: 2rem;
+            margin-top: 12px;
+            max-width: 480px;
         }
 
-        .action-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
-            width: 100%;
-        }
-
-        .action-card {
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            background: #ffffff;
-            box-shadow: var(--card-shadow);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 13.5rem;
-        }
-
-        .action-card-icon {
-            width: 2.75rem;
-            height: 2.75rem;
-            background: var(--icon-bg);
-            border-radius: 0.6rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-blue);
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .action-card h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .action-card p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
-
-        .action-card .arrow-link {
-            align-self: flex-end;
-            color: var(--primary-blue);
-            font-size: 1rem;
-            text-decoration: none;
-        }
-
-        .hero-right-illustration {
+        .status-hero-illustration {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
         }
 
-        /* Removed max-height cap so image scales proportionally with wide screens */
-        .hero-right-illustration img {
+        .status-hero-illustration img {
             width: 100%;
+            max-width: 320px;
             height: auto;
             object-fit: contain;
         }
 
-        /* Application Info Section */
-        .info-section {
-            background-color: var(--bg-light);
-            border-radius: 1rem;
-            padding: 2.5rem;
-            margin: 2.5rem 0;
+        /* Lookup Card Form Section */
+        .lookup-section {
             width: 100%;
+            max-width: 680px;
+            margin: clamp(-30px, -2vw, -40px) 0 clamp(40px, 4vw, 60px);
+            position: relative;
+            z-index: 10;
         }
 
-        .info-section h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            margin-bottom: 0.4rem;
-        }
-
-        .blue-line {
-            width: 2.5rem;
-            height: 0.2rem;
-            background-color: var(--primary-blue);
-            margin-bottom: 1rem;
-            border-radius: 0.1rem;
-        }
-
-        .info-section > p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        .doc-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .doc-item {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .doc-icon {
-            width: 3rem;
-            height: 3rem;
-            background: var(--icon-bg);
-            border-radius: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-blue);
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .doc-item h4 {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 0.3rem;
-        }
-
-        .doc-item p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        .req-btn-container {
-            display: flex;
-            justify-content: center;
-        }
-
-        .req-btn {
+        .lookup-card {
             background: #ffffff;
             border: 1px solid var(--border-color);
-            color: var(--primary-blue);
-            padding: 0.75rem 1.75rem;
-            border-radius: 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            border-radius: 20px;
+            padding: clamp(24px, 3.5vw, 48px);
             box-shadow: var(--card-shadow);
         }
 
-        /* Bottom Support & Social Section */
-        .bottom-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
-            padding: 2rem 0 3.5rem;
-        }
-
-        .support-block, .social-block {
+        .lookup-header {
             display: flex;
-            gap: 1.25rem;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: clamp(20px, 2.5vw, 32px);
         }
 
-        .block-icon {
-            width: 3.25rem;
-            height: 3.25rem;
+        .lookup-header-icon {
+            width: clamp(48px, 4vw, 60px);
+            height: clamp(48px, 4vw, 60px);
             background: var(--icon-bg);
-            border-radius: 50%;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary-blue);
-            font-size: 1.3rem;
+            font-size: clamp(1.2rem, 1.5vw, 1.6rem);
+            margin-bottom: 12px;
+        }
+
+        .lookup-header h3 {
+            font-size: clamp(1.1rem, 1.3vw, 1.4rem);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .lookup-header p {
+            font-size: clamp(0.8rem, 0.9vw, 1rem);
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: clamp(16px, 1.8vw, 24px);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: clamp(0.8rem, 0.85vw, 0.95rem);
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--input-bg);
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: var(--primary-blue);
+        }
+
+        .input-icon {
+            width: clamp(40px, 3vw, 50px);
+            height: clamp(40px, 3vw, 50px);
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: clamp(0.9rem, 1vw, 1.1rem);
+            border-right: 1px solid var(--border-color);
             flex-shrink: 0;
         }
 
-        .block-content h3 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .block-content p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            font-size: 0.85rem;
+        .input-wrapper input {
+            width: 100%;
+            height: clamp(40px, 3vw, 50px);
+            border: none;
+            outline: none;
+            padding: 0 16px;
+            font-size: clamp(0.85rem, 0.95vw, 1rem);
             color: var(--text-dark);
-            font-weight: 500;
+            background: transparent;
         }
 
-        .contact-details div {
+        .input-wrapper input::placeholder {
+            color: #94a3b8;
+        }
+
+        .toggle-password {
+            padding: 0 16px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: clamp(0.9rem, 1vw, 1.1rem);
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            height: clamp(44px, 3.2vw, 52px);
+            background: var(--primary-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: clamp(0.9rem, 1vw, 1.05rem);
+            font-weight: 600;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
+            gap: 10px;
+            margin-top: clamp(20px, 2vw, 28px);
+            transition: background 0.2s ease;
         }
 
-        .contact-details i {
-            color: var(--primary-blue);
+        .submit-btn:hover {
+            background: #154ec2;
         }
 
-        .social-icons {
+        /* Notice Box */
+        .info-notice {
+            margin-top: clamp(20px, 2vw, 28px);
+            background-color: #f0f6ff;
+            border-radius: 10px;
+            padding: clamp(12px, 1.2vw, 18px);
             display: flex;
-            gap: 0.75rem;
+            gap: 12px;
+            align-items: flex-start;
         }
 
-        .social-btn {
-            width: 2.4rem;
-            height: 2.4rem;
+        .info-notice i {
+            color: var(--primary-blue);
+            font-size: clamp(1rem, 1.1vw, 1.2rem);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .info-notice p {
+            font-size: clamp(0.75rem, 0.85vw, 0.9rem);
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        /* Help Bottom Banner */
+        .help-banner {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            background-color: var(--bg-light);
+            border-top: 1px solid var(--border-color);
+            padding: clamp(24px, 2.5vw, 40px) clamp(16px, 4vw, 80px);
+            display: flex;
+            justify-content: center;
+        }
+
+        .help-banner-content {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .help-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .help-icon {
+            width: clamp(40px, 3vw, 48px);
+            height: clamp(40px, 3vw, 48px);
             background: var(--icon-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary-blue);
+            font-size: clamp(1rem, 1.2vw, 1.3rem);
+            flex-shrink: 0;
+        }
+
+        .help-text h4 {
+            font-size: clamp(0.95rem, 1.05vw, 1.2rem);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .help-text p {
+            font-size: clamp(0.75rem, 0.85vw, 0.95rem);
+            color: var(--text-muted);
+        }
+
+        .support-btn {
+            background: #ffffff;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: clamp(10px, 1vw, 14px) clamp(20px, 2vw, 28px);
+            border-radius: 8px;
+            font-size: clamp(0.8rem, 0.9vw, 0.95rem);
+            font-weight: 600;
+            cursor: pointer;
             text-decoration: none;
-            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
         }
 
         /* Footer */
         footer {
             border-top: 1px solid var(--border-color);
-            background: #fcfcfc;
-            padding: 1.25rem 0;
-            font-size: 0.8rem;
+            background: #ffffff;
+            padding: clamp(16px, 1.5vw, 24px) 0;
+            font-size: clamp(0.75rem, 0.85vw, 0.9rem);
             color: var(--text-muted);
-            margin-top: auto;
+            text-align: center;
         }
 
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-        }
-
-        /* Layout Shifts for Tablet & Mobile */
+        /* Explicit Breakpoints for Clean Layout Shifts */
         @media (max-width: 850px) {
-            .hero, .bottom-grid {
+            .status-hero-content {
                 grid-template-columns: 1fr;
+                text-align: center;
             }
-            .doc-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .status-hero-left p {
+                margin: 12px auto 0;
+            }
+            .status-hero-illustration {
+                display: none;
             }
         }
 
-        @media (max-width: 550px) {
-            .header-content, .footer-content {
+        @media (max-width: 600px) {
+            .header-content {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .action-cards {
-                grid-template-columns: 1fr;
+            .help-banner-content {
+                flex-direction: column;
+                align-items: flex-start;
             }
-            .doc-grid {
-                grid-template-columns: 1fr;
+            .support-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -452,12 +436,11 @@
                 <img src="../assets/uni-logo.png" alt="Atlas University Logo">
                 <div class="brand-text">
                     <h2>ATLAS UNIVERSITY</h2>
-                    <p>Excellence • Integrity • Impact</p>
+                    <p>Application Portal</p>
                 </div>
             </div>
             <div class="header-contact">
-                <div><i class="fas fa-phone"></i> +27 12 345 6789</div>
-                <div><i class="fas fa-envelope"></i> <a href="mailto:admissions@atlasuniversity.edu.za">admissions@atlasuniversity.edu.za</a></div>
+                <i class="fas fa-phone"></i> Need help? <strong>+27 12 345 6789</strong>
             </div>
         </div>
     </header>
@@ -465,98 +448,78 @@
     <main class="container">
         
         <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-left">
-                <h1>Your Future. <span>Our Commitment.</span></h1>
-                <p>Welcome to Atlas University. We are dedicated to academic excellence, innovation, and preparing students for a successful future.</p>
-                
-                <div class="action-cards">
-                    <div class="action-card">
-                        <div>
-                            <div class="action-card-icon"><i class="far fa-edit"></i></div>
-                            <h3>Apply Now</h3>
-                            <p>Start your application to join our community.</p>
-                        </div>
-                        <a href="#" class="arrow-link"><i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    
-                    <div class="action-card">
-                        <div>
-                            <div class="action-card-icon"><i class="fas fa-search"></i></div>
-                            <h3>Check Application Status</h3>
-                            <p>Track your application using your reference number and PIN.</p>
-                        </div>
-                        <a href="#" class="arrow-link"><i class="fas fa-arrow-right"></i></a>
-                    </div>
+        <section class="status-hero">
+            <div class="status-hero-content">
+                <div class="status-hero-left">
+                    <h1>Check Your <span>Application Status</span></h1>
+                    <p>Enter your Application Number and PIN to view your application status.</p>
                 </div>
-            </div>
-
-            <div class="hero-right-illustration">
-                <img src="../assets/uni-building.png" alt="Atlas University Building">
+                <div class="status-hero-illustration">
+                    <img src="../assets/status-illustration.png" alt="Status Illustration">
+                </div>
             </div>
         </section>
 
-        <!-- Application Information -->
-        <section class="info-section">
-            <h2>Application Information</h2>
-            <div class="blue-line"></div>
-            <p>Before you apply, please ensure you have the following:</p>
+        <!-- Lookup Form Card -->
+        <section class="lookup-section">
+            <div class="lookup-card">
+                <div class="lookup-header">
+                    <div class="lookup-header-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Application Status Lookup</h3>
+                    <p>Your details are secure and confidential.</p>
+                </div>
 
-            <div class="doc-grid">
-                <div class="doc-item">
-                    <div class="doc-icon"><i class="far fa-address-card"></i></div>
-                    <h4>ID Document</h4>
-                    <p>Clear copy of your ID or Passport.</p>
-                </div>
-                <div class="doc-item">
-                    <div class="doc-icon"><i class="far fa-file-alt"></i></div>
-                    <h4>Academic Results</h4>
-                    <p>Your latest academic results or transcripts.</p>
-                </div>
-                <div class="doc-item">
-                    <div class="doc-icon"><i class="far fa-credit-card"></i></div>
-                    <h4>Proof of Payment</h4>
-                    <p>Proof of payment for the application fee.</p>
-                </div>
-                <div class="doc-item">
-                    <div class="doc-icon"><i class="far fa-folder-open"></i></div>
-                    <h4>Other Documents</h4>
-                    <p>Any other supporting documents if required.</p>
-                </div>
-            </div>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="app-number">Application Number</label>
+                        <div class="input-wrapper">
+                            <div class="input-icon">
+                                <i class="far fa-file-alt"></i>
+                            </div>
+                            <input type="text" id="app-number" placeholder="Enter your application number" required>
+                        </div>
+                    </div>
 
-            <div class="req-btn-container">
-                <button class="req-btn">View Full Requirements <i class="fas fa-chevron-down"></i></button>
+                    <div class="form-group">
+                        <label for="pin">PIN</label>
+                        <div class="input-wrapper">
+                            <div class="input-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <input type="password" id="pin" placeholder="Enter your PIN" required>
+                            <i class="far fa-eye toggle-password"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-search"></i> Check Status
+                    </button>
+
+                    <div class="info-notice">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Make sure you enter the correct Application Number and PIN as provided when you submitted your application.</p>
+                    </div>
+                </form>
             </div>
         </section>
 
-        <!-- Bottom Support and Social Section -->
-        <section class="bottom-grid">
-            <div class="support-block">
-                <div class="block-icon"><i class="fas fa-headset"></i></div>
-                <div class="block-content">
-                    <h3>Need Help?</h3>
-                    <p>Our admissions team is here to help you.</p>
-                    <div class="contact-details">
-                        <div><i class="fas fa-phone"></i> +27 12 345 6789</div>
-                        <div><i class="fas fa-envelope"></i> admissions@atlasuniversity.edu.za</div>
-                        <div><i class="far fa-clock"></i> Mon - Fri: 08:00 - 16:30</div>
+        <!-- Bottom Help Banner -->
+        <section class="help-banner">
+            <div class="help-banner-content">
+                <div class="help-banner-left">
+                    <div class="help-icon">
+                        <i class="far fa-question-circle"></i>
+                    </div>
+                    <div class="help-text">
+                        <h4>Need Help?</h4>
+                        <p>If you're having trouble checking your status, please contact our support team.</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="social-block">
-                <div class="block-icon"><i class="far fa-comment-dots"></i></div>
-                <div class="block-content">
-                    <h3>Stay Connected</h3>
-                    <p>Follow us for the latest updates and important announcements.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
+                <a href="#" class="support-btn">
+                    <i class="far fa-envelope"></i> Contact Support
+                </a>
             </div>
         </section>
 
@@ -564,13 +527,8 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container footer-content">
-            <div>© 2025 Atlas University. All rights reserved.</div>
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <span>|</span>
-                <a href="#">Terms & Conditions</a>
-            </div>
+        <div class="container">
+            © 2024 Atlas University. All rights reserved.
         </div>
     </footer>
 
