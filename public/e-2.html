@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atlas University - Application Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1d60d8;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f4f7fc;
+            --border-color: #e2e8f0;
+            --icon-bg: #e0edff;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Responsive base scaling for higher resolutions */
+        html {
+            font-size: 16px;
+        }
+
+        @media (min-width: 1600px) {
+            html {
+                font-size: 18px;
+            }
+        }
+
+        @media (min-width: 2200px) {
+            html {
+                font-size: 22px;
+            }
+        }
+
+        @media (min-width: 3000px) {
+            html {
+                font-size: 26px;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Dynamic Fluid Container */
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0 4vw;
+        }
+
+        /* Header Navigation */
+        header {
+            width: 100%;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-logo img {
+            height: 2.5rem;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-text h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .header-contact {
+            display: flex;
+            align-items: center;
+            gap: 2vw;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .header-contact div {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-contact i {
+            color: var(--primary-blue);
+        }
+
+        .header-contact a {
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        main.container {
+            flex: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 3vw 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3vw;
+            align-items: center;
+        }
+
+        .hero-left h1 {
+            font-size: clamp(2.2rem, 3.5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .hero-left h1 span {
+            color: var(--primary-blue);
+            display: block;
+        }
+
+        .hero-left p {
+            font-size: clamp(0.9rem, 1.2vw, 1.25rem);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 100%;
+        }
+
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5vw;
+        }
+
+        .action-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            background: #ffffff;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 14rem;
+        }
+
+        .action-card-icon {
+            width: 2.75rem;
+            height: 2.75rem;
+            background: var(--icon-bg);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .action-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .action-card .arrow-link {
+            align-self: flex-end;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        .hero-right-illustration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-right-illustration img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Application Info Section */
+        .info-section {
+            background-color: var(--bg-light);
+            border-radius: 16px;
+            padding: 2.5vw 3vw;
+            margin: 2vw 0 3vw;
+            width: 100%;
+        }
+
+        .info-section h2 {
+            font-size: clamp(1.35rem, 2vw, 2.2rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .blue-line {
+            width: 2.5rem;
+            height: 3px;
+            background-color: var(--primary-blue);
+            margin-bottom: 1rem;
+            border-radius: 2px;
+        }
+
+        .info-section > p {
+            font-size: clamp(0.88rem, 1vw, 1.1rem);
+            color: var(--text-muted);
+            margin-bottom: 2vw;
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2vw;
+            margin-bottom: 2vw;
+        }
+
+        .doc-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .doc-icon {
+            width: 3rem;
+            height: 3rem;
+            background: var(--icon-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .doc-item h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .doc-item p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .req-btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .req-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--primary-blue);
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Support & Social Section */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3vw;
+            padding: 2vw 0 4vw;
+        }
+
+        .support-block, .social-block {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .block-icon {
+            width: 3.25rem;
+            height: 3.25rem;
+            background: var(--icon-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .block-content h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .block-content p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .contact-details div {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .contact-details i {
+            color: var(--primary-blue);
+            width: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .social-btn {
+            width: 2.4rem;
+            height: 2.4rem;
+            background: var(--icon-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            background: #fcfcfc;
+            padding: 1.25rem 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-contact {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.4rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container header-content">
+            <div class="brand-logo">
+                <img src="../assets/uni-logo.png" alt="Atlas University Logo">
+                <div class="brand-text">
+                    <h2>ATLAS UNIVERSITY</h2>
+                    <p>Excellence • Integrity • Impact</p>
+                </div>
+            </div>
+            <div class="header-contact">
+                <div><i class="fas fa-phone"></i> +27 12 345 6789</div>
+                <div><i class="fas fa-envelope"></i> <a href="mailto:admissions@atlasuniversity.edu.za">admissions@atlasuniversity.edu.za</a></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-left">
+                <h1>Your Future. <span>Our Commitment.</span></h1>
+                <p>Welcome to Atlas University. We are dedicated to academic excellence, innovation, and preparing students for a successful future.</p>
+                
+                <div class="action-cards">
+                    <div class="action-card">
+                        <div>
+                            <div class="action-card-icon"><i class="far fa-edit"></i></div>
+                            <h3>Apply Now</h3>
+                            <p>Start your application to join our community.</p>
+                        </div>
+                        <a href="#" class="arrow-link"><i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div>
+                            <div class="action-card-icon"><i class="fas fa-search"></i></div>
+                            <h3>Check Application Status</h3>
+                            <p>Track your application using your reference number and PIN.</p>
+                        </div>
+                        <a href="#" class="arrow-link"><i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-right-illustration">
+                <img src="../assets/uni-building.png" alt="Atlas University Building">
+            </div>
+        </section>
+
+        <!-- Application Information -->
+        <section class="info-section">
+            <h2>Application Information</h2>
+            <div class="blue-line"></div>
+            <p>Before you apply, please ensure you have the following:</p>
+
+            <div class="doc-grid">
+                <div class="doc-item">
+                    <div class="doc-icon"><i class="far fa-address-card"></i></div>
+                    <h4>ID Document</h4>
+                    <p>Clear copy of your ID or Passport.</p>
+                </div>
+                <div class="doc-item">
+                    <div class="doc-icon"><i class="far fa-file-alt"></i></div>
+                    <h4>Academic Results</h4>
+                    <p>Your latest academic results or transcripts.</p>
+                </div>
+                <div class="doc-item">
+                    <div class="doc-icon"><i class="far fa-credit-card"></i></div>
+                    <h4>Proof of Payment</h4>
+                    <p>Proof of payment for the application fee.</p>
+                </div>
+                <div class="doc-item">
+                    <div class="doc-icon"><i class="far fa-folder-open"></i></div>
+                    <h4>Other Documents</h4>
+                    <p>Any other supporting documents if required.</p>
+                </div>
+            </div>
+
+            <div class="req-btn-container">
+                <button class="req-btn">View Full Requirements <i class="fas fa-chevron-down"></i></button>
+            </div>
+        </section>
+
+        <!-- Bottom Support and Social Section -->
+        <section class="bottom-grid">
+            <div class="support-block">
+                <div class="block-icon"><i class="fas fa-headset"></i></div>
+                <div class="block-content">
+                    <h3>Need Help?</h3>
+                    <p>Our admissions team is here to help you.</p>
+                    <div class="contact-details">
+                        <div><i class="fas fa-phone"></i> +27 12 345 6789</div>
+                        <div><i class="fas fa-envelope"></i> admissions@atlasuniversity.edu.za</div>
+                        <div><i class="far fa-clock"></i> Mon - Fri: 08:00 - 16:30</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-block">
+                <div class="block-icon"><i class="far fa-comment-dots"></i></div>
+                <div class="block-content">
+                    <h3>Stay Connected</h3>
+                    <p>Follow us for the latest updates and important announcements.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div>© 2025 Atlas University. All rights reserved.</div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <span>|</span>
+                <a href="#">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
