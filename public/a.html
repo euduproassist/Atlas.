@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atlas University - Application Status</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1d60d8;
+            --primary-blue-hover: #154ec2;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f4f7fc;
+            --border-color: #e2e8f0;
+            --icon-bg: #e0edff;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            
+            /* Additional status variables matching the UI */
+            --status-green-bg: #dcfce7;
+            --status-green-text: #16a34a;
+            --status-blue-bg: #e0edff;
+            --status-blue-text: #1d60d8;
+            --status-gray-bg: #f1f5f9;
+            --status-gray-text: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #f8fafc;
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Header Navigation */
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: clamp(12px, 1.2vw, 20px) clamp(16px, 4vw, 40px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo img {
+            height: clamp(32px, 2.5vw, 42px);
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-text h2 {
+            font-size: clamp(1rem, 1.2vw, 1.3rem);
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .brand-text p {
+            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: clamp(36px, 2.5vw, 42px);
+            height: clamp(36px, 2.5vw, 42px);
+            background: #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: clamp(1.1rem, 1.3vw, 1.4rem);
+        }
+
+        .user-name {
+            font-size: clamp(0.85rem, 0.95vw, 1rem);
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .user-profile i {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Main Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* Sidebar Navigation */
+        aside.sidebar {
+            width: clamp(240px, 18vw, 280px);
+            background-color: #ffffff;
+            border-right: 1px solid var(--border-color);
+            padding: clamp(20px, 2vw, 32px) clamp(12px, 1.2vw, 20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: clamp(0.85rem, 0.9vw, 0.95rem);
+            transition: all 0.2s ease;
+        }
+
+        .nav-item a i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-item.active a {
+            background-color: var(--icon-bg);
+            color: var(--primary-blue);
+        }
+
+        .nav-item a:hover:not(.active) {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* Sidebar Help Card */
+        .sidebar-help-card {
+            background-color: var(--bg-light);
+            border-radius: 12px;
+            padding: clamp(16px, 1.5vw, 20px);
+            margin-top: 24px;
+        }
+
+        .help-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .help-header i {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+        }
+
+        .help-header h4 {
+            font-size: clamp(0.85rem, 0.95vw, 1rem);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .sidebar-help-card p {
+            font-size: clamp(0.75rem, 0.82vw, 0.88rem);
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .contact-support-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 16px;
+            background: #ffffff;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: clamp(0.8rem, 0.85vw, 0.9rem);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .contact-support-btn:hover {
+            background: var(--primary-blue);
+            color: #ffffff;
+        }
+
+        /* Main Content Viewport */
+        main.main-content {
+            flex: 1;
+            padding: clamp(20px, 3vw, 40px);
+            max-width: 1000px;
+        }
+
+        .page-header {
+            margin-bottom: clamp(20px, 2.5vw, 32px);
+        }
+
+        .page-header h1 {
+            font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .page-header p {
+            font-size: clamp(0.85rem, 0.95vw, 1rem);
+            color: var(--text-muted);
+        }
+
+        /* Top Status Summary Card */
+        .status-summary-card {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: clamp(20px, 2.5vw, 28px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: clamp(28px, 3.5vw, 40px);
+            position: relative;
+        }
+
+        .status-summary-card::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            bottom: 20%;
+            left: 50%;
+            width: 1px;
+            background-color: var(--border-color);
+        }
+
+        .summary-box label {
+            display: block;
+            font-size: clamp(0.78rem, 0.85vw, 0.9rem);
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .summary-box .app-id {
+            font-size: clamp(1.2rem, 1.6vw, 1.7rem);
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: clamp(0.8rem, 0.88vw, 0.92rem);
+            font-weight: 600;
+        }
+
+        .status-badge.under-review {
+            background-color: var(--status-blue-bg);
+            color: var(--status-blue-text);
+        }
+
+        /* Application Progress Section */
+        .progress-section-title {
+            font-size: clamp(1.1rem, 1.4vw, 1.4rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: clamp(20px, 2vw, 28px);
+        }
+
+        /* Vertical Timeline List */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: clamp(24px, 3vw, 36px);
+        }
+
+        .timeline-step {
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: clamp(16px, 2vw, 24px);
+            position: relative;
+        }
+
+        /* Timeline Connector Line and Indicators */
+        .timeline-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .marker-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            z-index: 2;
+            background: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .marker-icon.completed {
+            border: 2px solid var(--status-green-text);
+            color: var(--status-green-text);
+        }
+
+        .marker-icon.in-progress {
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .marker-icon.pending {
+            border: 2px solid var(--border-color);
+            background: var(--status-gray-bg);
+            color: transparent;
+        }
+
+        .marker-line {
+            width: 2px;
+            flex-grow: 1;
+            margin: 6px 0;
+        }
+
+        .marker-line.solid-green {
+            background-color: var(--status-green-text);
+        }
+
+        .marker-line.solid-blue {
+            background-color: var(--primary-blue);
+        }
+
+        .marker-line.dashed-gray {
+            border-left: 2px dashed #cbd5e1;
+        }
+
+        /* Timeline Step Content Card */
+        .step-card {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: clamp(16px, 2vw, 24px);
+            box-shadow: var(--card-shadow);
+            margin-bottom: clamp(20px, 2.5vw, 28px);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .step-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .step-card-header h3 {
+            font-size: clamp(1rem, 1.15vw, 1.2rem);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .badge-pill {
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: clamp(0.72rem, 0.8vw, 0.85rem);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-pill.completed {
+            background-color: var(--status-green-bg);
+            color: var(--status-green-text);
+        }
+
+        .badge-pill.in-progress {
+            background-color: var(--status-blue-bg);
+            color: var(--status-blue-text);
+        }
+
+        .badge-pill.pending {
+            background-color: var(--status-gray-bg);
+            color: var(--status-gray-text);
+        }
+
+        .step-card p {
+            font-size: clamp(0.82rem, 0.9vw, 0.95rem);
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .step-meta {
+            font-size: clamp(0.75rem, 0.82vw, 0.88rem);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Bottom Notice Banner */
+        .info-notice-banner {
+            background-color: var(--icon-bg);
+            border-radius: 12px;
+            padding: clamp(14px, 1.8vw, 20px);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .info-notice-banner i {
+            color: var(--primary-blue);
+            font-size: clamp(1.2rem, 1.4vw, 1.5rem);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .info-notice-banner p {
+            font-size: clamp(0.8rem, 0.88vw, 0.92rem);
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .mobile-help-wrapper {
+            display: none;
+            margin-top: 24px;
+        }
+
+        /* Responsive Mechanics */
+        @media (max-width: 850px) {
+            .dashboard-layout {
+                flex-direction: column;
+            }
+
+            aside.sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px;
+            }
+
+            .nav-list {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 8px;
+            }
+
+            .nav-item a {
+                white-space: nowrap;
+            }
+
+            aside.sidebar .sidebar-help-card {
+                display: none;
+            }
+
+            .mobile-help-wrapper {
+                display: block;
+            }
+
+            main.main-content {
+                padding: 20px 16px;
+            }
+
+            .status-summary-card {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .status-summary-card::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-content">
+            <div class="brand-logo">
+                <img src="../assets/uni-logo.png" alt="Atlas University Logo">
+                <div class="brand-text">
+                    <h2>ATLAS UNIVERSITY</h2>
+                    <p>Applicant Portal</p>
+                </div>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="user-name">Paul</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <ul class="nav-list">
+                <li class="nav-item active">
+                    <a href="#"><i class="far fa-id-card"></i> Application Status</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#"><i class="far fa-file-alt"></i> Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#"><i class="far fa-credit-card"></i> Payment</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#"><i class="fas fa-chart-line"></i> Acceptance Letter</a>
+                </li>
+            </ul>
+
+            <div class="sidebar-help-card">
+                <div class="help-header">
+                    <i class="fas fa-headset"></i>
+                    <h4>Need Help?</h4>
+                </div>
+                <p>If you need assistance, contact our support team.</p>
+                <a href="#" class="contact-support-btn">Contact Support</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Viewport -->
+        <main class="main-content">
+            
+            <section class="page-header">
+                <h1>Application Status</h1>
+                <p>Track the progress of your application.</p>
+            </section>
+
+            <!-- Top Application Summary Block -->
+            <section class="status-summary-card">
+                <div class="summary-box">
+                    <label>Application Number</label>
+                    <div class="app-id">ATL-2026-004821</div>
+                </div>
+                <div class="summary-box">
+                    <label>Current Status</label>
+                    <div>
+                        <span class="status-badge under-review">
+                            <i class="far fa-clock"></i> Application Under Review
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Tracker Section -->
+            <section>
+                <h2 class="progress-section-title">Application Progress</h2>
+
+                <div class="timeline">
+                    
+                    <!-- Step 1: Completed -->
+                    <div class="timeline-step">
+                        <div class="timeline-marker">
+                            <div class="marker-icon completed">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="marker-line solid-green"></div>
+                            <div class="marker-icon completed" style="width:20px; height:20px; font-size:0.6rem;">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            <div class="marker-line solid-green"></div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-card-header">
+                                <h3>Application Submitted</h3>
+                                <span class="badge-pill completed">Completed</span>
+                            </div>
+                            <p>Your application has been successfully submitted.</p>
+                            <div class="step-meta">15 May 2026 &nbsp;•&nbsp; 10:30 AM</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Completed -->
+                    <div class="timeline-step">
+                        <div class="timeline-marker">
+                            <div class="marker-icon completed">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="marker-line solid-green"></div>
+                            <div class="marker-icon completed" style="width:20px; height:20px; font-size:0.6rem;">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            <div class="marker-line solid-blue"></div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-card-header">
+                                <h3>Documents Under Review</h3>
+                                <span class="badge-pill completed">Completed</span>
+                            </div>
+                            <p>Your documents are being reviewed by our admissions team.</p>
+                            <div class="step-meta">15 May 2026 &nbsp;•&nbsp; 11:15 AM</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: In Progress -->
+                    <div class="timeline-step">
+                        <div class="timeline-marker">
+                            <div class="marker-icon in-progress">
+                                <i class="far fa-clock"></i>
+                            </div>
+                            <div class="marker-line solid-blue"></div>
+                            <div class="marker-icon in-progress" style="width:20px; height:20px; font-size:0.6rem;">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            <div class="marker-line dashed-gray"></div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-card-header">
+                                <h3>Application Under Review</h3>
+                                <span class="badge-pill in-progress">In Progress</span>
+                            </div>
+                            <p>Your application is currently being reviewed.</p>
+                            <div class="step-meta">16 May 2026 &nbsp;•&nbsp; In Progress</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Pending -->
+                    <div class="timeline-step">
+                        <div class="timeline-marker">
+                            <div class="marker-icon pending"></div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-card-header">
+                                <h3>Accepted / Rejected</h3>
+                                <span class="badge-pill pending">Pending</span>
+                            </div>
+                            <p>You will be notified of the final decision.</p>
+                            <div class="step-meta">Pending</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Info Notice -->
+            <div class="info-notice-banner">
+                <i class="fas fa-circle-info"></i>
+                <p>Please check back regularly for updates on your application status.<br>You will also receive email/SMS notifications for any changes.</p>
+            </div>
+
+            <!-- Mobile Help Card Wrapper -->
+            <div class="mobile-help-wrapper">
+                <div class="sidebar-help-card">
+                    <div class="help-header">
+                        <i class="fas fa-headset"></i>
+                        <h4>Need Help?</h4>
+                    </div>
+                    <p>If you need assistance, contact our support team.</p>
+                    <a href="#" class="contact-support-btn">Contact Support</a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
