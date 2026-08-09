@@ -62,9 +62,10 @@
             gap: 12px;
         }
 
-        .brand-logo i {
-            font-size: 2.2rem;
-            color: var(--primary-blue);
+        .brand-logo img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
         }
 
         .brand-text h2 {
@@ -194,10 +195,11 @@
             width: 100%;
         }
 
-        .hero-right-illustration svg {
+        .hero-right-illustration img {
             width: 100%;
             max-width: 450px;
             height: auto;
+            object-fit: contain;
         }
 
         /* Application Info Section */
@@ -438,7 +440,7 @@
     <header>
         <div class="container header-content">
             <div class="brand-logo">
-                <i class="fas fa-graduation-cap"></i>
+                <img src="../assets/uni-logo.png" alt="Atlas University Logo">
                 <div class="brand-text">
                     <h2>ATLAS UNIVERSITY</h2>
                     <p>Excellence • Integrity • Impact</p>
@@ -481,22 +483,7 @@
             </div>
 
             <div class="hero-right-illustration">
-                <svg viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 300 H450" stroke="#cbd5e1" stroke-width="2"/>
-                    <rect x="210" y="80" width="80" height="220" stroke="#93c5fd" stroke-width="2" fill="#eff6ff"/>
-                    <polygon points="210,80 250,40 290,80" stroke="#93c5fd" stroke-width="2" fill="#eff6ff"/>
-                    <rect x="100" y="160" width="110" height="140" stroke="#93c5fd" stroke-width="2" fill="#f8fafc"/>
-                    <rect x="290" y="160" width="110" height="140" stroke="#93c5fd" stroke-width="2" fill="#f8fafc"/>
-                    <circle cx="250" cy="115" r="10" stroke="#93c5fd" stroke-width="2"/>
-                    <path d="M250 40 V20 H270 V30 H250" stroke="#93c5fd" stroke-width="2"/>
-                    <rect x="115" y="180" width="20" height="25" stroke="#93c5fd" stroke-width="1.5"/>
-                    <rect x="145" y="180" width="20" height="25" stroke="#93c5fd" stroke-width="1.5"/>
-                    <rect x="175" y="180" width="20" height="25" stroke="#93c5fd" stroke-width="1.5"/>
-                    <rect x="305" y="180" width="20" height="25" stroke="#93c5fd" stroke-width="1.5"/>
-                    <rect x="335" y="180" width="20" height="25" stroke="#93c5fd" stroke-width="1.5"/>
-                    <rect x="365" y="180" width="20" height="25" stroke="#93c5fd" stroke-width="1.5"/>
-                    <path d="M235 300 V250 C235 240, 265 240, 265 250 V300" stroke="#93c5fd" stroke-width="2" fill="#ffffff"/>
-                </svg>
+                <img src="../assets/uni-building.png" alt="Atlas University Building">
             </div>
         </section>
 
