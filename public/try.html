@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas University - Application Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1d60d8;
+            --primary-blue-hover: #154ec2;
+            --bg-light: #f4f7fc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --input-bg: #ffffff;
+            --badge-bg: #e0edff;
+            --required-color: #ef4444;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Header Navigation */
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-header i {
+            font-size: 28px;
+            color: var(--primary-blue);
+        }
+
+        .brand-header-text h2 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+        }
+
+        .brand-header-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .user-profile-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--bg-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--badge-bg);
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .user-info {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .user-info span {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Layout Container */
+        .portal-layout {
+            display: flex;
+            flex: 1;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 260px;
+            background-color: #ffffff;
+            border-right: 1px solid var(--border-color);
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background-color: var(--bg-light);
+            color: var(--primary-blue);
+        }
+
+        .nav-item.active {
+            background-color: var(--badge-bg);
+            color: var(--primary-blue);
+        }
+
+        .nav-item i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Form Area */
+        main {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        /* Process Step Navigation Header */
+        .steps-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            scrollbar-width: thin;
+        }
+
+        .step-pill {
+            white-space: nowrap;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .step-pill.active {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            border-color: var(--primary-blue);
+        }
+
+        .step-pill.completed {
+            background-color: var(--badge-bg);
+            color: var(--primary-blue);
+            border-color: transparent;
+        }
+
+        /* Main Form Card */
+        .form-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .form-header {
+            margin-bottom: 28px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+        }
+
+        .form-header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .form-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Form Controls & Grid Layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .form-group label .required {
+            color: var(--required-color);
+            font-weight: 700;
+        }
+
+        .form-group label i {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-left: 4px;
+            cursor: pointer;
+        }
+
+        .form-control {
+            height: 46px;
+            padding: 0 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(29, 96, 216, 0.1);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2064748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 36px;
+        }
+
+        /* Form Footer Buttons */
+        .form-actions {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-secondary-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            height: 44px;
+            padding: 0 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-blue-hover);
+        }
+
+        .btn-outline {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--bg-light);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .portal-layout {
+                flex-direction: column;
+            }
+            aside {
+                width: 100%;
+                flex-direction: row;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 12px 16px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="brand-header">
+            <i class="fas fa-university"></i>
+            <div class="brand-header-text">
+                <h2>ATLAS UNIVERSITY</h2>
+                <p>Applicant Portal</p>
+            </div>
+        </div>
+
+        <div class="user-profile-badge">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                Napo, NM MR <span>(ATL-59684410)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Portal Container -->
+    <div class="portal-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Application Status</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-edit"></i>
+                <span>New Application</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-folder-open"></i>
+                <span>My Documents</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-credit-card"></i>
+                <span>Payment</span>
+            </a>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main>
+            <!-- Step Navigation Tabs -->
+            <div class="steps-nav">
+                <div class="step-pill active">1. Application Admission</div>
+                <div class="step-pill">2. School Subjects</div>
+                <div class="step-pill">3. Study Choice</div>
+                <div class="step-pill">4. Biographical</div>
+                <div class="step-pill">5. Contact Details</div>
+                <div class="step-pill">6. Post School</div>
+                <div class="step-pill">7. Electronic Documents</div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="form-card">
+                <div class="form-header">
+                    <h1>Application Admission</h1>
+                    <p>Please enter your academic background and general application information.</p>
+                </div>
+
+                <form action="#" method="POST">
+                    <div class="form-grid">
+
+                        <!-- Application Year -->
+                        <div class="form-group">
+                            <label for="appYear">Application Year <span class="required">*</span></label>
+                            <input type="text" id="appYear" class="form-control" value="2027" readonly>
+                        </div>
+
+                        <!-- Matric Year -->
+                        <div class="form-group">
+                            <label for="matricYear">Matric Year <span class="required">*</span></label>
+                            <input type="text" id="matricYear" class="form-control" value="2021" placeholder="e.g. 2021">
+                        </div>
+
+                        <!-- Qualification Type -->
+                        <div class="form-group">
+                            <label for="qualificationType">Qualification Type <span class="required">*</span></label>
+                            <select id="qualificationType" class="form-control">
+                                <option value="undergrad" selected>Undergraduate Qualification</option>
+                                <option value="postgrad">Postgraduate Qualification</option>
+                                <option value="diploma">Diploma / Higher Certificate</option>
+                            </select>
+                        </div>
+
+                        <!-- Presentation Method -->
+                        <div class="form-group">
+                            <label for="presentationMethod">
+                                Presentation Method <span class="required">*</span>
+                                <i class="fas fa-info-circle" title="Select whether you plan to study full-time on campus or distance learning"></i>
+                            </label>
+                            <select id="presentationMethod" class="form-control">
+                                <option value="contact" selected>Contact (On Campus)</option>
+                                <option value="distance">Distance Learning</option>
+                            </select>
+                        </div>
+
+                        <!-- Highest Academic Level -->
+                        <div class="form-group full-width">
+                            <label for="academicLevel">Highest Academic Level (achieved/enrolled for) <span class="required">*</span></label>
+                            <select id academicLevel" class="form-control">
+                                <option value="nsc" selected>National Senior Certificate (NSC) / Matric</option>
+                                <option value="nvc">National Certificate Vocational (NCV)</option>
+                                <option value="foreign">Foreign / International Qualification</option>
+                            </select>
+                        </div>
+
+                        <!-- Previously studied at any university? -->
+                        <div class="form-group">
+                            <label for="prevUniversity">Previously studied at any university?</label>
+                            <select id="prevUniversity" class="form-control">
+                                <option value="yes" selected>Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+
+                        <!-- Previously studied at this university? -->
+                        <div class="form-group">
+                            <label for="prevThisUniversity">Previously studied at Atlas University?</label>
+                            <select id="prevThisUniversity" class="form-control">
+                                <option value="yes" selected>Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+
+                        <!-- Previously studied for this qualification? -->
+                        <div class="form-group">
+                            <label for="prevThisQual">Previously studied for this qualification?</label>
+                            <select id="prevThisQual" class="form-control">
+                                <option value="no" selected>No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <!-- Payment Source -->
+                        <div class="form-group">
+                            <label for="paymentSource">How will you be paying for your university studies? <span class="required">*</span></label>
+                            <select id="paymentSource" class="form-control">
+                                <option value="bursary" selected>Other Bursaries / NSFAS</option>
+                                <option value="self">Self-Funded / Parent</option>
+                                <option value="employer">Employer Sponsored</option>
+                            </select>
+                        </div>
+
+                        <!-- Accommodation Arrangements -->
+                        <div class="form-group full-width">
+                            <label for="accommodation">What accommodation arrangements do you plan to make? <span class="required">*</span></label>
+                            <select id="accommodation" class="form-control">
+                                <option value="private" selected>Private accommodation / Commuter</option>
+                                <option value="residence">University On-Campus Residence</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <div class="btn-secondary-group">
+                            <button type="button" class="btn btn-outline">Save Draft</button>
+                            <button type="button" class="btn btn-outline">Cancel</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Next Step <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
