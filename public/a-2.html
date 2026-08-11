@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atlas University - Portal</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #1d60d8;
+            --primary-blue-hover: #154ec2;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --icon-bg: #eff6ff;
+            --icon-color: #2563eb;
+            --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 12px -2px rgba(0, 0, 0, 0.02);
+            --radius-lg: 16px;
+            --radius-md: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page-view {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 32px);
+        }
+
+        /* Shared Header */
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: clamp(14px, 2vw, 20px) 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--icon-bg);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.25rem;
+        }
+
+        .brand-text h2 {
+            font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .brand-text p {
+            font-size: clamp(0.75rem, 0.85vw, 0.85rem);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .header-contact-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(0.8rem, 0.9vw, 0.95rem);
+            color: var(--text-muted);
+        }
+
+        .header-contact-status i {
+            color: var(--primary-blue);
+        }
+
+        .header-contact-status strong {
+            color: var(--text-dark);
+        }
+
+        /* --- PAGE 1: HOME LANDING --- */
+        .hero {
+            padding: clamp(32px, 4vw, 60px) 0;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: clamp(24px, 4vw, 60px);
+            align-items: center;
+        }
+
+        .hero-left h1 {
+            font-size: clamp(2rem, 3.5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .hero-left h1 span {
+            color: var(--primary-blue);
+            display: block;
+        }
+
+        .hero-left p {
+            font-size: clamp(0.95rem, 1.1vw, 1.2rem);
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        .action-cards {
+            display: flex;
+            gap: 20px;
+        }
+
+        .action-card {
+            flex: 1;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 190px;
+            transition: transform 0.2s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .action-card-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--icon-bg);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            margin-bottom: 14px;
+        }
+
+        .action-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 6px;
+        }
+
+        .action-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        .arrow-btn {
+            align-self: flex-end;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--icon-bg);
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .action-card:hover .arrow-btn {
+            background: var(--primary-blue);
+            color: #ffffff;
+        }
+
+        .hero-illustration {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+        }
+
+        /* Application Info Card Block */
+        .info-section {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: clamp(24px, 3vw, 40px);
+            margin: 20px 0 40px 0;
+            box-shadow: var(--card-shadow);
+        }
+
+        .info-section h2 {
+            font-size: clamp(1.2rem, 1.6vw, 1.75rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .blue-line {
+            width: 40px;
+            height: 4px;
+            background-color: var(--primary-blue);
+            margin-bottom: 16px;
+            border-radius: 2px;
+        }
+
+        .info-section > p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .doc-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .doc-icon {
+            width: 46px;
+            height: 46px;
+            background: var(--icon-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .doc-item h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .doc-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .req-btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .req-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--primary-blue);
+            padding: 12px 28px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .req-btn:hover {
+            background: var(--icon-bg);
+        }
+
+        /* Collapsible Drawer */
+        .requirements-drawer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+            opacity: 0;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-top: 16px;
+        }
+
+        .requirements-drawer.open {
+            max-height: 500px;
+            opacity: 1;
+            padding: 20px;
+            border: 1px dashed var(--border-color);
+        }
+
+        .drawer-list {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: var(--text-dark);
+        }
+
+        .drawer-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .drawer-list i {
+            color: #10b981;
+        }
+
+        /* --- PAGE 2: SELECTION SCREEN --- */
+        main.selection-main {
+            flex: 1;
+            padding: clamp(32px, 5vw, 64px) 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .welcome-header {
+            text-align: center;
+            margin-bottom: clamp(32px, 4vw, 48px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar-badge {
+            width: 64px;
+            height: 64px;
+            background: var(--icon-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--icon-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .welcome-header h1 {
+            font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .welcome-header p {
+            font-size: clamp(0.9rem, 1.05vw, 1.1rem);
+            color: var(--text-muted);
+            max-width: 520px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(20px, 3vw, 32px);
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 40px;
+        }
+
+        .option-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: clamp(28px, 3vw, 40px) clamp(20px, 2.5vw, 32px);
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-icon-wrapper {
+            width: 72px;
+            height: 72px;
+            background: var(--icon-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--icon-color);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .option-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .option-card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 28px;
+            flex-grow: 1;
+            max-width: 320px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-blue-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--icon-bg);
+        }
+
+        .help-banner {
+            width: 100%;
+            max-width: 900px;
+            background-color: #f0f6ff;
+            border: 1px solid #dbeafe;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .help-icon {
+            color: var(--icon-color);
+            font-size: 1.4rem;
+            margin-top: 2px;
+        }
+
+        .help-content h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .help-content p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .help-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* --- PAGE 3: STATUS & LOGIN VIEW --- */
+        .hero-wrapper {
+            background-color: #ffffff;
+            width: 100%;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .status-hero-section {
+            padding: clamp(24px, 4vw, 48px) 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .status-hero-left h1 {
+            font-size: clamp(2rem, 3vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .status-hero-left h1 span {
+            color: var(--primary-blue);
+            display: block;
+        }
+
+        .status-hero-left p {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .status-hero-right {
+            display: flex;
+            justify-content: center;
+        }
+
+        .status-hero-right img {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+        }
+
+        .lookup-block {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .lookup-card {
+            width: 100%;
+            max-width: 540px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: clamp(24px, 3vw, 40px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .lookup-header {
+            text-align: center;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lookup-header-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--icon-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .lookup-header h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .lookup-header p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: #ffffff;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: var(--primary-blue);
+        }
+
+        .input-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            border-right: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 44px;
+            border: none;
+            outline: none;
+            padding: 0 14px;
+            font-size: 0.92rem;
+            color: var(--text-dark);
+        }
+
+        .toggle-password {
+            padding: 0 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            height: 46px;
+            background: var(--primary-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 24px;
+            transition: background 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-blue-hover);
+        }
+
+        .info-notice {
+            margin-top: 20px;
+            background-color: var(--icon-bg);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .info-notice i {
+            color: var(--primary-blue);
+            margin-top: 3px;
+        }
+
+        .info-notice p {
+            font-size: 0.82rem;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            background: #ffffff;
+            padding: 20px 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        /* Breakpoints */
+        @media (max-width: 850px) {
+            .hero, .status-hero-section {
+                grid-template-columns: 1fr;
+            }
+            .hero-illustration, .status-hero-right {
+                display: none;
+            }
+            .doc-grid, .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SCREEN 1: PORTAL HOME LANDING PAGE -->
+    <div id="view-home" class="page-view">
+        <header>
+            <div class="container header-content">
+                <div class="brand-logo" onclick="navigateTo('home')">
+                    <div class="brand-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="brand-text">
+                        <h2>ATLAS UNIVERSITY</h2>
+                        <p>Excellence • Integrity • Impact</p>
+                    </div>
+                </div>
+                <div class="header-contact-status">
+                    <i class="fas fa-phone"></i> +27 12 345 6789
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="hero">
+                <div class="hero-left">
+                    <h1>Your Future. <span>Our Commitment.</span></h1>
+                    <p>Welcome to Atlas University. We are dedicated to academic excellence, innovation, and preparing students for a successful future.</p>
+                    
+                    <div class="action-cards">
+                        <div class="action-card">
+                            <div>
+                                <div class="action-card-icon"><i class="far fa-edit"></i></div>
+                                <h3>Apply Now</h3>
+                                <p>Start your application to join our community.</p>
+                            </div>
+                            <button class="arrow-btn" onclick="navigateTo('selection')"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                        
+                        <div class="action-card">
+                            <div>
+                                <div class="action-card-icon"><i class="fas fa-search"></i></div>
+                                <h3>Check Status</h3>
+                                <p>Track your application using your reference number and PIN.</p>
+                            </div>
+                            <button class="arrow-btn" onclick="navigateTo('status')"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <svg class="hero-illustration" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="500" height="400" rx="16" fill="#EFF6FF"/>
+                        <path d="M150 300L250 120L350 300H150Z" fill="#1D60D8" opacity="0.15"/>
+                        <circle cx="250" cy="180" r="40" fill="#1D60D8" opacity="0.2"/>
+                        <path d="M200 280H300V300H200V280Z" fill="#1D60D8"/>
+                    </svg>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2>Application Information</h2>
+                <div class="blue-line"></div>
+                <p>Before you apply, please ensure you have the following required documentation ready:</p>
+
+                <div class="doc-grid">
+                    <div class="doc-item">
+                        <div class="doc-icon"><i class="far fa-address-card"></i></div>
+                        <h4>ID Document</h4>
+                        <p>Clear copy of your valid ID or Passport.</p>
+                    </div>
+                    <div class="doc-item">
+                        <div class="doc-icon"><i class="far fa-file-alt"></i></div>
+                        <h4>Academic Results</h4>
+                        <p>Your latest Grade 12 or tertiary results.</p>
+                    </div>
+                    <div class="doc-item">
+                        <div class="doc-icon"><i class="far fa-credit-card"></i></div>
+                        <h4>Proof of Payment</h4>
+                        <p>Application fee receipt (if applicable).</p>
+                    </div>
+                    <div class="doc-item">
+                        <div class="doc-icon"><i class="far fa-folder-open"></i></div>
+                        <h4>Other Documents</h4>
+                        <p>Additional study certificates if requested.</p>
+                    </div>
+                </div>
+
+                <div class="req-btn-container">
+                    <button class="req-btn" id="toggle-drawer-btn" onclick="toggleRequirements()">
+                        View Full Requirements <i class="fas fa-chevron-down" id="drawer-icon"></i>
+                    </button>
+                </div>
+
+                <div class="requirements-drawer" id="requirements-drawer">
+                    <ul class="drawer-list">
+                        <li><i class="fas fa-check-circle"></i> Certified copy of your National Senior Certificate or Equivalent.</li>
+                        <li><i class="fas fa-check-circle"></i> Certified copy of South African ID or International Passport.</li>
+                        <li><i class="fas fa-check-circle"></i> Academic Transcripts if transferring from another university.</li>
+                        <li><i class="fas fa-check-circle"></i> Valid Email Address and Mobile Phone Number for OTP verification.</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div>© 2026 Atlas University. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- SCREEN 2: APPLICANT SELECTION PAGE -->
+    <div id="view-selection" class="page-view hidden">
+        <header>
+            <div class="container header-content">
+                <div class="brand-logo" onclick="navigateTo('home')">
+                    <div class="brand-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="brand-text">
+                        <h2>ATLAS UNIVERSITY</h2>
+                        <p>Applicant Portal</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container selection-main">
+            <section class="welcome-header">
+                <div class="avatar-badge"><i class="far fa-user"></i></div>
+                <h1>Welcome to Atlas University</h1>
+                <p>To get started with your application, please select an option below.</p>
+            </section>
+
+            <section class="options-grid">
+                <div class="option-card">
+                    <div class="card-icon-wrapper"><i class="fas fa-user-plus"></i></div>
+                    <h3>New Applicant</h3>
+                    <p>I am a new applicant and do not have an Institution number and PIN.</p>
+                    <button class="btn btn-primary" onclick="alert('Proceeding to New Registration Stream...')">Create My Profile</button>
+                </div>
+
+                <div class="option-card">
+                    <div class="card-icon-wrapper"><i class="fas fa-user-sync"></i></div>
+                    <h3>Returning Applicant</h3>
+                    <p>I have an Institution number and PIN and want to continue my application.</p>
+                    <button class="btn btn-outline" onclick="navigateTo('status')">Log In to Continue</button>
+                </div>
+            </section>
+
+            <section class="help-banner">
+                <div class="help-icon"><i class="fas fa-info-circle"></i></div>
+                <div class="help-content">
+                    <h4>Need Help?</h4>
+                    <p>If you're unsure which option to choose, please contact our support team.</p>
+                    <a href="mailto:support@atlasuniversity.edu.za" class="help-link">Contact Support <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div>© 2026 Atlas University. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- SCREEN 3: LOOKUP & LOGIN PAGE -->
+    <div id="view-status" class="page-view hidden">
+        <header>
+            <div class="container header-content">
+                <div class="brand-logo" onclick="navigateTo('home')">
+                    <div class="brand-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="brand-text">
+                        <h2>ATLAS UNIVERSITY</h2>
+                        <p>Applicant Portal</p>
+                    </div>
+                </div>
+                <div class="header-contact-status">
+                    <i class="fas fa-phone"></i> Need help? <strong>+27 12 345 6789</strong>
+                </div>
+            </div>
+        </header>
+
+        <div class="hero-wrapper">
+            <div class="container">
+                <section class="status-hero-section">
+                    <div class="status-hero-left">
+                        <h1>Check Your <span>Application Status</span></h1>
+                        <p>Enter your Application Number and PIN to view your current application status.</p>
+                    </div>
+                    <div class="status-hero-right">
+                        <svg width="280" height="180" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="280" height="180" rx="12" fill="#EFF6FF"/>
+                            <path d="M80 130V70H200V130H80Z" fill="#1D60D8" opacity="0.2"/>
+                            <circle cx="140" cy="100" r="20" fill="#1D60D8"/>
+                        </svg>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <main class="container">
+            <section class="lookup-block">
+                <div class="lookup-card">
+                    <div class="lookup-header">
+                        <div class="lookup-header-icon"><i class="fas fa-lock"></i></div>
+                        <h3>Application Status Lookup</h3>
+                        <p>Your details are secure and confidential.</p>
+                    </div>
+
+                    <form onsubmit="handleStatusSubmit(event)">
+                        <div class="form-group">
+                            <label for="app-number">Application Number</label>
+                            <div class="input-wrapper">
+                                <div class="input-icon"><i class="far fa-file-alt"></i></div>
+                                <input type="text" id="app-number" placeholder="Enter your application number" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pin">PIN</label>
+                            <div class="input-wrapper">
+                                <div class="input-icon"><i class="fas fa-shield-alt"></i></div>
+                                <input type="password" id="pin" placeholder="Enter your PIN" required>
+                                <i class="far fa-eye toggle-password" id="toggle-pin-btn" onclick="togglePinVisibility()"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn"><i class="fas fa-search"></i> Check Status</button>
+
+                        <div class="info-notice">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Make sure you enter the correct Application Number and PIN provided when you submitted your initial application.</p>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div>© 2026 Atlas University. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Application Controller Logic -->
+    <script>
+        const views = {
+            home: document.getElementById('view-home'),
+            selection: document.getElementById('view-selection'),
+            status: document.getElementById('view-status')
+        };
+
+        function navigateTo(targetView) {
+            Object.keys(views).forEach(key => {
+                if (key === targetView) {
+                    views[key].classList.remove('hidden');
+                } else {
+                    views[key].classList.add('hidden');
+                }
+            });
+            window.scrollTo(0, 0);
+            history.pushState({ view: targetView }, '', '#' + targetView);
+        }
+
+        window.addEventListener('popstate', (e) => {
+            const stateView = e.state ? e.state.view : 'home';
+            Object.keys(views).forEach(key => {
+                if (key === stateView) {
+                    views[key].classList.remove('hidden');
+                } else {
+                    views[key].classList.add('hidden');
+                }
+            });
+        });
+
+        // Initialize state on first load
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (views[hash]) {
+                navigateTo(hash);
+            } else {
+                navigateTo('home');
+            }
+        });
+
+        function toggleRequirements() {
+            const drawer = document.getElementById('requirements-drawer');
+            const icon = document.getElementById('drawer-icon');
+            drawer.classList.toggle('open');
+            if (drawer.classList.contains('open')) {
+                icon.className = 'fas fa-chevron-up';
+            } else {
+                icon.className = 'fas fa-chevron-down';
+            }
+        }
+
+        function togglePinVisibility() {
+            const pinInput = document.getElementById('pin');
+            const pinBtn = document.getElementById('toggle-pin-btn');
+            if (pinInput.type === 'password') {
+                pinInput.type = 'text';
+                pinBtn.className = 'far fa-eye-slash toggle-password';
+            } else {
+                pinInput.type = 'password';
+                pinBtn.className = 'far fa-eye toggle-password';
+            }
+        }
+
+        function handleStatusSubmit(e) {
+            e.preventDefault();
+            const appNum = document.getElementById('app-number').value;
+            alert(`Searching record for Application Number: ${appNum}`);
+        }
+    </script>
+</body>
+</html>
