@@ -5,13 +5,13 @@ import { getStorage } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-s
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-analytics.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBBYQY2-wLmm4XB1AmRO_t7ACvJiXNrjEM",
-  authDomain: "atlas-c58f8.firebaseapp.com",
-  projectId: "atlas-c58f8",
-  storageBucket: "atlas-c58f8.firebasestorage.app",
-  messagingSenderId: "645586610569",
-  appId: "1:645586610569:web:f9182dea6a718615a75958",
-  measurementId: "G-R08BR0Z8RS"
+  apiKey: "AIzaSyDDIE2VrOGza-cBUMJGV07qiSav516_x1w",
+  authDomain: "atlas-apply-e8e38.firebaseapp.com",
+  projectId: "atlas-apply-e8e38",
+  storageBucket: "atlas-apply-e8e38.firebasestorage.app",
+  messagingSenderId: "94463036488",
+  appId: "1:94463036488:web:fc8b44f6431eb442ca1c7d",
+  measurementId: "G-P33NJYDEJ1"
 };
 
 // Initialize Firebase
