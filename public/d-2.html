@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atlas University - Create Your Application Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #0056e0;
+            --primary-blue-hover: #0045b5;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --input-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            --required-color: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: clamp(16px, 3vw, 40px) 16px;
+        }
+
+        /* Fluid Container preventing ultra-wide stretching while staying full-screen adaptable */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #e2e8f0;
+            padding: clamp(24px, 4vw, 48px);
+        }
+
+        /* Header / Logo */
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: clamp(28px, 4vw, 40px);
+        }
+
+        .brand-logo-icon {
+            width: clamp(40px, 3.5vw, 48px);
+            height: clamp(40px, 3.5vw, 48px);
+            color: var(--primary-blue);
+            font-size: clamp(1.8rem, 2.2vw, 2.4rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-text h2 {
+            font-size: clamp(1.1rem, 1.3vw, 1.35rem);
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: clamp(0.8rem, 0.9vw, 0.95rem);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Title Area */
+        .form-title-section {
+            margin-bottom: clamp(24px, 3vw, 36px);
+        }
+
+        .form-title-section h1 {
+            font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+            font-weight: 800;
+            color: #0d1b3e;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .form-title-section p {
+            font-size: clamp(0.9rem, 1vw, 1.05rem);
+            color: var(--text-muted);
+        }
+
+        /* Form Grid Layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(16px, 2vw, 24px);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .label-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        label {
+            font-size: clamp(0.85rem, 0.9vw, 0.95rem);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .required {
+            color: var(--required-color);
+            font-weight: bold;
+        }
+
+        .info-icon {
+            color: #0d1b3e;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        /* Input Controls */
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            height: clamp(44px, 3.2vw, 50px);
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0 16px;
+            font-size: clamp(0.9rem, 0.95vw, 1rem);
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.2s ease;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-blue);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0, 86, 224, 0.1);
+        }
+
+        /* Custom Select Arrow */
+        .select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .select-wrapper::after {
+            content: "\f078";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dark);
+            font-size: 0.8rem;
+            pointer-events: none;
+        }
+
+        /* Right Icon in Input (Date) */
+        .input-icon-right {
+            position: absolute;
+            right: 16px;
+            color: var(--text-dark);
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+        /* Phone Input Split */
+        .phone-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .phone-code {
+            width: clamp(90px, 20%, 120px);
+            flex-shrink: 0;
+        }
+
+        .phone-number {
+            flex: 1;
+        }
+
+        .field-note {
+            font-size: clamp(0.75rem, 0.8vw, 0.85rem);
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* Captcha Box */
+        .captcha-container {
+            grid-column: 1 / -1;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
+        .captcha-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .captcha-check-icon {
+            color: #16a34a;
+            font-size: 1.5rem;
+        }
+
+        .captcha-label {
+            font-size: clamp(0.9rem, 0.95vw, 1rem);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .captcha-subtext {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .captcha-subtext a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .captcha-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .captcha-brand-icon {
+            color: #2563eb;
+            font-size: 1.8rem;
+        }
+
+        .captcha-brand-text {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Action Buttons */
+        .button-group {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .btn-next {
+            width: 100%;
+            height: clamp(46px, 3.5vw, 52px);
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: clamp(0.95rem, 1vw, 1.05rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-next:hover {
+            background-color: var(--primary-blue-hover);
+        }
+
+        .btn-cancel {
+            width: 100%;
+            height: clamp(46px, 3.5vw, 52px);
+            background-color: #ffffff;
+            color: var(--primary-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: clamp(0.95rem, 1vw, 1.05rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-cancel:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Responsiveness for Mobile */
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .captcha-container {
+                flex-direction: row;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Brand Header -->
+        <header class="brand-header">
+            <div class="brand-logo-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="brand-text">
+                <h2>ATLAS UNIVERSITY</h2>
+                <p>Applicant Portal</p>
+            </div>
+        </header>
+
+        <!-- Form Title -->
+        <div class="form-title-section">
+            <h1>Create Your Application Profile</h1>
+            <p>Please provide your personal details to create your profile.</p>
+        </div>
+
+        <!-- Registration Form -->
+        <form class="form-grid" action="#" method="POST" onsubmit="event.preventDefault();">
+            
+            <!-- Nationality -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="nationality">Nationality</label>
+                    <span class="required">*</span>
+                </div>
+                <div class="select-wrapper">
+                    <select id="nationality" required>
+                        <option value="South Africa" selected>South Africa</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Identity Number -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="identity-number">Identity Number</label>
+                    <span class="required">*</span>
+                    <i class="fa-solid fa-circle-info info-icon"></i>
+                </div>
+                <input type="text" id="identity-number" value="8601040284082" required>
+            </div>
+
+            <!-- Surname -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="surname">Surname</label>
+                    <span class="required">*</span>
+                </div>
+                <input type="text" id="surname" value="Napo" required>
+            </div>
+
+            <!-- Initials -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="initials">Initials</label>
+                    <span class="required">*</span>
+                    <i class="fa-solid fa-circle-info info-icon"></i>
+                </div>
+                <input type="text" id="initials" value="NM" required>
+            </div>
+
+            <!-- First Names -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="first-names">First Names</label>
+                    <span class="required">*</span>
+                </div>
+                <input type="text" id="first-names" value="Nnana Mavis" required>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="dob">Date of Birth</label>
+                    <span class="required">*</span>
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" id="dob" value="19860104" required>
+                    <i class="fa-regular fa-calendar input-icon-right"></i>
+                </div>
+            </div>
+
+            <!-- Title -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="title">Title</label>
+                    <span class="required">*</span>
+                </div>
+                <div class="select-wrapper">
+                    <select id="title" required>
+                        <option value="MR" selected>MR</option>
+                        <option value="MS">MS</option>
+                        <option value="MRS">MRS</option>
+                        <option value="DR">DR</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Maiden Name -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="maiden-name">Maiden Name</label>
+                </div>
+                <input type="text" id="maiden-name">
+            </div>
+
+            <!-- Email Address -->
+            <div class="form-group full-width">
+                <div class="label-container">
+                    <label for="email">Email Address</label>
+                    <span class="required">*</span>
+                </div>
+                <input type="email" id="email" value="NAPOTSHEPO9@GMAIL.COM" required>
+            </div>
+
+            <!-- Home Language -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="home-language">Home Language</label>
+                    <span class="required">*</span>
+                </div>
+                <div class="select-wrapper">
+                    <select id="home-language" required>
+                        <option value="Sepedi" selected>Sepedi</option>
+                        <option value="English">English</option>
+                        <option value="Afrikaans">Afrikaans</option>
+                        <option value="isiZulu">isiZulu</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Correspondence Language -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="correspondence-language">Correspondence Language</label>
+                    <span class="required">*</span>
+                </div>
+                <div class="select-wrapper">
+                    <select id="correspondence-language" required>
+                        <option value="English" selected>English</option>
+                        <option value="Afrikaans">Afrikaans</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Cellphone Number -->
+            <div class="form-group full-width">
+                <div class="label-container">
+                    <label for="cellphone">Cellphone Number</label>
+                    <span class="required">*</span>
+                </div>
+                <div class="phone-group">
+                    <div class="select-wrapper phone-code">
+                        <select id="country-code" required>
+                            <option value="+27" selected>+27</option>
+                        </select>
+                    </div>
+                    <div class="phone-number">
+                        <input type="text" id="cellphone" value="790936802" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Choose PIN -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="choose-pin">Choose PIN</label>
+                    <span class="required">*</span>
+                </div>
+                <input type="password" id="choose-pin" value="12345" required>
+                <p class="field-note">Min 5, max 10 characters, case sensitive</p>
+            </div>
+
+            <!-- Confirm PIN -->
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="confirm-pin">Confirm PIN</label>
+                    <span class="required">*</span>
+                </div>
+                <input type="password" id="confirm-pin" value="12345" required>
+            </div>
+
+            <!-- ReCAPTCHA Block -->
+            <div class="captcha-container">
+                <div class="captcha-left">
+                    <i class="fa-solid fa-check captcha-check-icon"></i>
+                    <div>
+                        <div class="captcha-label">I'm not a robot</div>
+                        <div class="captcha-subtext">
+                            This site is protected by <a href="#">reCAPTCHA</a> and the<br>
+                            Google <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a> apply.
+                        </div>
+                    </div>
+                </div>
+                <div class="captcha-right">
+                    <i class="fa-solid fa-arrows-rotate captcha-brand-icon"></i>
+                    <span class="captcha-brand-text">reCAPTCHA</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button type="submit" class="btn-next">Next</button>
+                <button type="button" class="btn-cancel">Cancel</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
