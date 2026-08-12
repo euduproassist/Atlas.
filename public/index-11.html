@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atlas University - Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1d60d8;
+            --primary-blue-hover: #154ec2;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #ffffff; /* Changed from grey to pure white */
+            --border-color: #e2e8f0;
+            --icon-bg: #e0edff;   /* Kept soft blue accent background for icon badges */
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            --input-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #ffffff; /* Pure white background */
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-view {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Fluid & Responsive Layout Utility */
+        .container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 64px);
+        }
+
+        /* Header Navigation */
+        header {
+            width: 100%;
+            border-bottom: 1px solid var(--border-color);
+            padding: clamp(12px, 1.5vw, 24px) 0;
+            background-color: #ffffff;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo img {
+            height: clamp(32px, 3vw, 48px);
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-text h2 {
+            font-size: clamp(1rem, 1.2vw, 1.4rem);
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .brand-text p {
+            font-size: clamp(0.7rem, 0.8vw, 0.9rem);
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .header-contact {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2vw, 32px);
+            font-size: clamp(0.75rem, 0.9vw, 1rem);
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .header-contact div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-contact i {
+            color: var(--primary-blue);
+        }
+
+        .header-contact a {
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .header-contact-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(0.8rem, 0.9vw, 1rem);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .header-contact-status i {
+            color: var(--primary-blue);
+        }
+
+        .header-contact-status strong {
+            color: var(--text-dark);
+        }
+
+        main.container {
+            flex: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: clamp(24px, 3vw, 60px) 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(20px, 4vw, 60px);
+            align-items: center;
+        }
+
+        .hero-left h1 {
+            font-size: clamp(2rem, 3.5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .hero-left h1 span {
+            color: var(--primary-blue);
+            display: block;
+        }
+
+        .hero-left p {
+            font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .action-cards {
+            display: flex;
+            gap: clamp(12px, 1.5vw, 24px);
+            width: 100%;
+        }
+
+        .action-card {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: clamp(16px, 1.5vw, 28px);
+            background: #ffffff;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
+        }
+
+        .action-card-icon {
+            width: clamp(36px, 3vw, 48px);
+            height: clamp(36px, 3vw, 48px);
+            background: var(--icon-bg);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: clamp(1rem, 1.2vw, 1.4rem);
+            margin-bottom: 12px;
+        }
+
+        .action-card h3 {
+            font-size: clamp(0.95rem, 1.1vw, 1.25rem);
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 6px;
+        }
+
+        .action-card p {
+            font-size: clamp(0.75rem, 0.85vw, 0.95rem);
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .action-card .arrow-link {
+            align-self: flex-end;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .hero-right-illustration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-right-illustration img {
+            width: 100%;
+            height: auto;
+            max-width: 550px;
+            object-fit: contain;
+        }
+
+        /* Application Info Section */
+        .info-section {
+            background-color: #ffffff; /* Updated to white */
+            border: 1px solid var(--border-color); /* Added clean border since section background is white */
+            border-radius: 16px;
+            padding: clamp(24px, 3vw, 48px);
+            margin: clamp(20px, 2vw, 40px) 0;
+            width: 100%;
+            box-shadow: var(--card-shadow);
+        }
+
+        .info-section h2 {
+            font-size: clamp(1.2rem, 1.8vw, 2rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .blue-line {
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-blue);
+            margin-bottom: 16px;
+            border-radius: 2px;
+        }
+
+        .info-section > p {
+            font-size: clamp(0.85rem, 1vw, 1.1rem);
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(16px, 2vw, 32px);
+            margin-bottom: 24px;
+        }
+
+        .doc-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .doc-icon {
+            width: clamp(40px, 3vw, 52px);
+            height: clamp(40px, 3vw, 52px);
+            background: var(--icon-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: clamp(1.1rem, 1.3vw, 1.5rem);
+            margin-bottom: 12px;
+        }
+
+        .doc-item h4 {
+            font-size: clamp(0.85rem, 1vw, 1.1rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .doc-item p {
+            font-size: clamp(0.75rem, 0.85vw, 0.95rem);
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .req-btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .req-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--primary-blue);
+            padding: clamp(10px, 1vw, 16px) clamp(20px, 2vw, 32px);
+            border-radius: 8px;
+            font-size: clamp(0.8rem, 0.9vw, 1rem);
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Bottom Section */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(24px, 3vw, 48px);
+            padding: clamp(20px, 2vw, 40px) 0;
+        }
+
+        .support-block, .social-block {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .block-icon {
+            width: clamp(44px, 3vw, 56px);
+            height: clamp(44px, 3vw, 56px);
+            background: var(--icon-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: clamp(1.1rem, 1.3vw, 1.5rem);
+            flex-shrink: 0;
+        }
+
+        .block-content h3 {
+            font-size: clamp(1rem, 1.1vw, 1.3rem);
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 6px;
+        }
+
+        .block-content p {
+            font-size: clamp(0.8rem, 0.9vw, 1rem);
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: clamp(0.8rem, 0.9vw, 1rem);
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .contact-details div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-details i {
+            color: var(--primary-blue);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-btn {
+            width: clamp(36px, 2.5vw, 44px);
+            height: clamp(36px, 2.5vw, 44px);
+            background: var(--icon-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: clamp(0.85rem, 1vw, 1.1rem);
+        }
+
+        /* PAGE 2 SPECIFIC CSS */
+        .status-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: clamp(20px, 4vw, 40px);
+        }
+
+        .hero-wrapper {
+            background-color: #ffffff; /* Changed from grey tint to pure white */
+            width: 100%;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: clamp(24px, 4vw, 50px);
+        }
+
+        .status-hero-section {
+            padding: clamp(24px, 4vw, 50px) 0 clamp(30px, 4vw, 60px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(20px, 4vw, 60px);
+            align-items: center;
+        }
+
+        .status-hero-left h1 {
+            font-size: clamp(2rem, 3.5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .status-hero-left h1 span {
+            color: var(--primary-blue);
+            display: block;
+        }
+
+        .status-hero-left p {
+            font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+            color: var(--text-muted);
+            max-width: 480px;
+        }
+
+        .status-hero-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .status-hero-right img {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .lookup-block {
+            background-color: transparent;
+            padding: 0;
+            margin: 0 0 clamp(30px, 4vw, 50px) 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .lookup-card {
+            width: 100%;
+            max-width: 580px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: clamp(20px, 3vw, 40px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .lookup-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: clamp(20px, 2.5vw, 28px);
+        }
+
+        .lookup-header-icon {
+            width: clamp(44px, 3.5vw, 56px);
+            height: clamp(44px, 3.5vw, 56px);
+            background: var(--icon-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: clamp(1.1rem, 1.3vw, 1.5rem);
+            margin-bottom: 12px;
+        }
+
+        .lookup-header h3 {
+            font-size: clamp(1.1rem, 1.3vw, 1.35rem);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .lookup-header p {
+            font-size: clamp(0.8rem, 0.88vw, 0.95rem);
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: clamp(16px, 1.8vw, 20px);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: clamp(0.8rem, 0.85vw, 0.9rem);
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--input-bg);
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: var(--primary-blue);
+        }
+
+        .input-icon {
+            width: clamp(40px, 3vw, 48px);
+            height: clamp(40px, 3vw, 48px);
+            background: #ffffff; /* Changed input icon prefix background from grey to white */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: clamp(0.9rem, 1vw, 1.05rem);
+            border-right: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: clamp(40px, 3vw, 48px);
+            border: none;
+            outline: none;
+            padding: 0 14px;
+            font-size: clamp(0.85rem, 0.9vw, 0.95rem);
+            color: var(--text-dark);
+            background: transparent;
+        }
+
+        .input-wrapper input::placeholder {
+            color: #94a3b8;
+        }
+
+        .toggle-password {
+            padding: 0 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: clamp(0.85rem, 0.95vw, 1rem);
+        }
+
+        .submit-btn {
+            width: 100%;
+            height: clamp(42px, 3vw, 48px);
+            background: var(--primary-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: clamp(0.85rem, 0.95vw, 1rem);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: clamp(20px, 2vw, 24px);
+            transition: background 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-blue-hover);
+        }
+
+        .info-notice {
+            margin-top: clamp(18px, 1.8vw, 22px);
+            background-color: var(--icon-bg); /* Kept standard blue accent notice box */
+            border-radius: 8px;
+            padding: clamp(10px, 1.2vw, 14px);
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .info-notice i {
+            color: var(--primary-blue);
+            font-size: clamp(0.95rem, 1vw, 1.1rem);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .info-notice p {
+            font-size: clamp(0.75rem, 0.82vw, 0.88rem);
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .bottom-support-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 20px;
+            align-items: center;
+            padding: clamp(16px, 2vw, 28px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: var(--card-shadow);
+        }
+
+        .support-left {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .support-icon {
+            width: clamp(40px, 3vw, 48px);
+            height: clamp(40px, 3vw, 48px);
+            background: var(--icon-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: clamp(1rem, 1.2vw, 1.3rem);
+            flex-shrink: 0;
+        }
+
+        .support-text h4 {
+            font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .support-text p {
+            font-size: clamp(0.78rem, 0.88vw, 0.95rem);
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .support-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--primary-blue);
+            padding: clamp(10px, 1vw, 14px) clamp(18px, 1.8vw, 24px);
+            border-radius: 8px;
+            font-size: clamp(0.8rem, 0.88vw, 0.95rem);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            background: #ffffff; /* Changed footer background to pure white */
+            padding: clamp(16px, 1.5vw, 28px) 0;
+            font-size: clamp(0.75rem, 0.85vw, 0.95rem);
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        /* Breakpoints */
+        @media (max-width: 900px) {
+            .hero, .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+            .doc-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 850px) {
+            .status-hero-section {
+                grid-template-columns: 1fr;
+            }
+            .status-hero-right {
+                display: none;
+            }
+            .bottom-support-grid {
+                grid-template-columns: 1fr;
+            }
+            .support-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .header-content, .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .action-cards {
+                flex-direction: column;
+            }
+            .doc-grid {
+                grid-template-columns: 1fr;
+            }
+            .support-left {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: APPLICATION PORTAL HOME -->
+    <div id="page-home" class="page-view">
+        <header>
+            <div class="container header-content">
+                <div class="brand-logo">
+                    <img src="../assets/uni-logo.png" alt="Atlas University Logo">
+                    <div class="brand-text">
+                        <h2>ATLAS UNIVERSITY</h2>
+                        <p>Excellence • Integrity • Impact</p>
+                    </div>
+                </div>
+                <div class="header-contact">
+                    <div><i class="fas fa-phone"></i> +27 12 345 6789</div>
+                    <div><i class="fas fa-envelope"></i> <a href="mailto:admissions@atlasuniversity.edu.za">admissions@atlasuniversity.edu.za</a></div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="hero">
+                <div class="hero-left">
+                    <h1>Your Future. <span>Our Commitment.</span></h1>
+                    <p>Welcome to Atlas University. We are dedicated to academic excellence, innovation, and preparing students for a successful future.</p>
+                    
+                    <div class="action-cards">
+                        <div class="action-card">
+                            <div>
+                                <div class="action-card-icon"><i class="far fa-edit"></i></div>
+                                <h3>Apply Now</h3>
+                                <p>Start your application to join our community.</p>
+                            </div>
+                            <a href="#" class="arrow-link"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        
+                        <div class="action-card">
+                            <div>
+                                <div class="action-card-icon"><i class="fas fa-search"></i></div>
+                                <h3>Check Application Status</h3>
+                                <p>Track your application using your reference number and PIN.</p>
+                            </div>
+                            <a id="btn-check-status" class="arrow-link"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-right-illustration">
+                    <img src="../assets/uni-building.png" alt="Atlas University Building">
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2>Application Information</h2>
+                <div class="blue-line"></div>
+                <p>Before you apply, please ensure you have the following:</p>
+
+                <div class="doc-grid">
+                    <div class="doc-item">
+                        <div class="doc-icon"><i class="far fa-address-card"></i></div>
+                        <h4>ID Document</h4>
+                        <p>Clear copy of your ID or Passport.</p>
+                    </div>
+                    <div class="doc-item">
+                        <div class="doc-icon"><i class="far fa-file-alt"></i></div>
+                        <h4>Academic Results</h4>
+                        <p>Your latest academic results or transcripts.</p>
+                    </div>
+                    <div class="doc-item">
+                        <div class="doc-icon"><i class="far fa-credit-card"></i></div>
+                        <h4>Proof of Payment</h4>
+                        <p>Proof of payment for the application fee.</p>
+                    </div>
+                    <div class="doc-item">
+                        <div class="doc-icon"><i class="far fa-folder-open"></i></div>
+                        <h4>Other Documents</h4>
+                        <p>Any other supporting documents if required.</p>
+                    </div>
+                </div>
+
+                <div class="req-btn-container">
+                    <button class="req-btn">View Full Requirements <i class="fas fa-chevron-down"></i></button>
+                </div>
+            </section>
+
+            <section class="bottom-grid">
+                <div class="support-block">
+                    <div class="block-icon"><i class="fas fa-headset"></i></div>
+                    <div class="block-content">
+                        <h3>Need Help?</h3>
+                        <p>Our admissions team is here to help you.</p>
+                        <div class="contact-details">
+                            <div><i class="fas fa-phone"></i> +27 12 345 6789</div>
+                            <div><i class="fas fa-envelope"></i> admissions@atlasuniversity.edu.za</div>
+                            <div><i class="far fa-clock"></i> Mon - Fri: 08:00 - 16:30</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-block">
+                    <div class="block-icon"><i class="far fa-comment-dots"></i></div>
+                    <div class="block-content">
+                        <h3>Stay Connected</h3>
+                        <p>Follow us for the latest updates and important announcements.</p>
+                        <div class="social-icons">
+                            <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div>© 2025 Atlas University. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- PAGE 2: CHECK APPLICATION STATUS -->
+    <div id="page-status" class="page-view hidden">
+        <header>
+            <div class="container header-content">
+                <div class="brand-logo">
+                    <img src="../assets/uni-logo.png" alt="Atlas University Logo">
+                    <div class="brand-text">
+                        <h2>ATLAS UNIVERSITY</h2>
+                        <p>Excellence • Integrity • Impact</p>
+                    </div>
+                </div>
+                <div class="header-contact-status">
+                    <i class="fas fa-phone"></i> Need help? <strong>+27 12 345 6789</strong>
+                </div>
+            </div>
+        </header>
+
+        <div class="hero-wrapper">
+            <div class="container">
+                <section class="status-hero-section">
+                    <div class="status-hero-left">
+                        <h1>Check Your <span>Application Status</span></h1>
+                        <p>Enter your Application Number and PIN to view your current application status.</p>
+                    </div>
+                    <div class="status-hero-right">
+                        <img src="../assets/cardboard.png" alt="Status Illustration">
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <main class="container status-main">
+            <section class="lookup-block">
+                <div class="lookup-card">
+                    <div class="lookup-header">
+                        <div class="lookup-header-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Application Status Lookup</h3>
+                        <p>Your details are secure and confidential.</p>
+                    </div>
+
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="app-number">Application Number</label>
+                            <div class="input-wrapper">
+                                <div class="input-icon">
+                                    <i class="far fa-file-alt"></i>
+                                </div>
+                                <input type="text" id="app-number" placeholder="Enter your application number" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pin">PIN</label>
+                            <div class="input-wrapper">
+                                <div class="input-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <input type="password" id="pin" placeholder="Enter your PIN" required>
+                                <i class="far fa-eye toggle-password" id="toggle-password"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-search"></i> Check Status
+                        </button>
+
+                        <div class="info-notice">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Make sure you enter the correct Application Number and PIN as provided when you submitted your application.</p>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section class="bottom-support-grid">
+                <div class="support-left">
+                    <div class="support-icon">
+                        <i class="far fa-question-circle"></i>
+                    </div>
+                    <div class="support-text">
+                        <h4>Need Help?</h4>
+                        <p>If you're having trouble checking your status, please contact our support team.</p>
+                    </div>
+                </div>
+                <a href="#" class="support-btn">
+                    <i class="far fa-envelope"></i> Contact Support
+                </a>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div>© 2025 Atlas University. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Navigation & History Logic -->
+    <script>
+        const pageHome = document.getElementById('page-home');
+        const pageStatus = document.getElementById('page-status');
+        const btnCheckStatus = document.getElementById('btn-check-status');
+        const togglePassword = document.getElementById('toggle-password');
+        const pinInput = document.getElementById('pin');
+
+        function navigateTo(page) {
+            if (page === 'status') {
+                pageHome.classList.add('hidden');
+                pageStatus.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            } else {
+                pageStatus.classList.add('hidden');
+                pageHome.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        btnCheckStatus.addEventListener('click', (e) => {
+            e.preventDefault();
+            history.pushState({ page: 'status' }, 'Check Application Status', '#status');
+            navigateTo('status');
+        });
+
+        window.addEventListener('popstate', (e) => {
+            if (e.state && e.state.page === 'status') {
+                navigateTo('status');
+            } else {
+                navigateTo('home');
+            }
+        });
+
+        if (window.location.hash === '#status') {
+            history.replaceState({ page: 'status' }, 'Check Application Status', '#status');
+            navigateTo('status');
+        } else {
+            history.replaceState({ page: 'home' }, 'Application Portal Home', '#home');
+            navigateTo('home');
+        }
+
+        if (togglePassword) {
+            togglePassword.addEventListener('click', () => {
+                const type = pinInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                pinInput.setAttribute('type', type);
+                togglePassword.classList.toggle('fa-eye');
+                togglePassword.classList.toggle('fa-eye-slash');
+            });
+        }
+    </script>
+</body>
+</html>
