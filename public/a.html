@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atlas University - University Number & PIN</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #1d60d8;
+            --primary-blue-hover: #154ec2;
+            --light-blue-bg: #eff6ff;
+            --text-dark: #2d3748;
+            --text-muted: #64748b;
+            --bg-light: #ffffff;
+            --border-color: #cbd5e1;
+            --input-disabled-bg: #f2f2f2;
+            --radius-md: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        html, body {
+            width: 100vw;
+            height: 100vh;
+            max-width: 100%;
+            max-height: 100%;
+            overflow: hidden; /* Prevents scrolling down, up, or sideways */
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Full Width Container */
+        .container {
+            width: 100%;
+            padding: 0 clamp(16px, 4vw, 48px);
+        }
+
+        /* Header Navigation */
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: clamp(12px, 1.5vw, 16px) 0;
+            flex-shrink: 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--light-blue-bg);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+        }
+
+        .brand-text h2 {
+            font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .brand-text p {
+            font-size: clamp(0.75rem, 0.85vw, 0.85rem);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .academic-year-badge {
+            background-color: #f1f5f9;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Main Section - Full height allocation without overflow */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background-color: #ffffff;
+        }
+
+        .content-card {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(16px, 2.5vw, 24px);
+        }
+
+        /* Image exact styling elements */
+        .page-title {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 700;
+            color: #2d3748;
+            letter-spacing: -0.3px;
+        }
+
+        .notification-text {
+            font-size: clamp(1rem, 1.3vw, 1.2rem);
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        label {
+            font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .input-control {
+            width: 100%;
+            height: clamp(48px, 3.5vw, 56px);
+            background-color: var(--input-disabled-bg);
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 0 16px;
+            font-size: clamp(1.1rem, 1.4vw, 1.25rem);
+            font-weight: 500;
+            color: #4a5568;
+            outline: none;
+        }
+
+        .instruction-text {
+            font-size: clamp(1rem, 1.25vw, 1.15rem);
+            font-weight: 700;
+            color: #2d3748;
+            line-height: 1.4;
+            max-width: 900px;
+        }
+
+        /* Action Button */
+        .btn-container {
+            margin-top: 8px;
+        }
+
+        .btn-next {
+            background-color: #1d60d8;
+            color: #ffffff;
+            padding: clamp(10px, 1.2vw, 12px) clamp(20px, 2vw, 28px);
+            font-size: clamp(1rem, 1.2vw, 1.1rem);
+            font-weight: 600;
+            border: 2px solid #2563eb;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+
+        .btn-next:hover {
+            background-color: var(--primary-blue-hover);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #e2e8f0;
+            background: #ffffff;
+            padding: clamp(12px, 1.5vw, 16px) 0;
+            font-size: clamp(0.78rem, 0.85vw, 0.85rem);
+            color: var(--text-muted);
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .academic-year-badge {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header>
+            <div class="container header-content">
+                <div class="brand-container">
+                    <div class="brand-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ATLAS UNIVERSITY</h2>
+                        <p>Applicant Portal</p>
+                    </div>
+                </div>
+                <div class="academic-year-badge">
+                    Academic Year 2026 / 2027
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Display Content -->
+        <main class="container">
+            <div class="content-card">
+                <h1 class="page-title">University Number &amp; PIN</h1>
+
+                <!-- Sentence modified from SMS to Email -->
+                <p class="notification-text">University Number and PIN has been sent to: N***9@GMAIL.COM</p>
+
+                <div class="form-group">
+                    <label for="university-number">University Number</label>
+                    <input type="text" id="university-number" class="input-control" value="59684410" readonly>
+                </div>
+
+                <p class="instruction-text">Use your new University Number and PIN to login and continue with the new application.</p>
+
+                <div class="btn-container">
+                    <button class="btn-next" onclick="handleNext()">Next &gt;&gt;</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container footer-content">
+                <div>© 2026 Atlas University. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function handleNext() {
+            alert("Redirecting to the login page to continue your application...");
+        }
+    </script>
+</body>
+</html>
