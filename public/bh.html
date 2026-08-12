@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check Application Status - Atlas University</title>
+    <title>Applicant Login - Atlas University</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
@@ -275,6 +275,41 @@
             font-size: clamp(0.85rem, 0.95vw, 1rem);
         }
 
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: -4px;
+            margin-bottom: clamp(16px, 1.8vw, 20px);
+            font-size: clamp(0.78rem, 0.85vw, 0.9rem);
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .remember-me input {
+            accent-color: var(--primary-blue);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
         .submit-btn {
             width: 100%;
             height: clamp(42px, 3vw, 48px);
@@ -289,7 +324,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin-top: clamp(20px, 2vw, 24px);
+            margin-top: clamp(10px, 1.5vw, 16px);
             transition: background 0.2s ease;
         }
 
@@ -318,6 +353,25 @@
             font-size: clamp(0.75rem, 0.82vw, 0.88rem);
             color: var(--text-dark);
             line-height: 1.4;
+        }
+
+        .new-applicant-cta {
+            text-align: center;
+            margin-top: clamp(20px, 2vw, 24px);
+            padding-top: clamp(16px, 1.5vw, 20px);
+            border-top: 1px solid var(--border-color);
+            font-size: clamp(0.8rem, 0.88vw, 0.95rem);
+            color: var(--text-muted);
+        }
+
+        .new-applicant-cta a {
+            color: var(--primary-blue);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .new-applicant-cta a:hover {
+            text-decoration: underline;
         }
 
         .bottom-support-grid {
@@ -457,11 +511,11 @@
         <div class="container">
             <section class="status-hero-section">
                 <div class="status-hero-left">
-                    <h1>Check Your <span>Application Status</span></h1>
-                    <p>Enter your Application Number and PIN to view your current application status.</p>
+                    <h1>Continue Your <span>Application</span></h1>
+                    <p>Log in with your Reference Number or ID/Passport Number to resume, complete, or upload documents for your application.</p>
                 </div>
                 <div class="status-hero-right">
-                    <img src="../assets/cardboard.png" alt="Status Illustration">
+                    <img src="../assets/cardboard.png" alt="Portal Illustration">
                 </div>
             </section>
         </div>
@@ -472,41 +526,53 @@
             <div class="lookup-card">
                 <div class="lookup-header">
                     <div class="lookup-header-icon">
-                        <i class="fas fa-lock"></i>
+                        <i class="fas fa-user-check"></i>
                     </div>
-                    <h3>Application Status Lookup</h3>
-                    <p>Your details are secure and confidential.</p>
+                    <h3>Applicant Portal Login</h3>
+                    <p>Access your saved draft or complete outstanding steps.</p>
                 </div>
 
                 <form action="#" method="POST">
                     <div class="form-group">
-                        <label for="app-number">Application Number</label>
+                        <label for="applicant-id">Reference Number or ID / Passport</label>
                         <div class="input-wrapper">
                             <div class="input-icon">
-                                <i class="far fa-file-alt"></i>
+                                <i class="far fa-id-card"></i>
                             </div>
-                            <input type="text" id="app-number" placeholder="Enter your application number" required>
+                            <input type="text" id="applicant-id" placeholder="e.g. APP-2026-9874 or ID Number" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="pin">PIN</label>
+                        <label for="pin">Password / PIN</label>
                         <div class="input-wrapper">
                             <div class="input-icon">
-                                <i class="fas fa-shield-alt"></i>
+                                <i class="fas fa-lock"></i>
                             </div>
-                            <input type="password" id="pin" placeholder="Enter your PIN" required>
+                            <input type="password" id="pin" placeholder="Enter your password or PIN" required>
                             <i class="far fa-eye toggle-password" id="toggle-password"></i>
                         </div>
                     </div>
 
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="remember-me">
+                            Remember details
+                        </label>
+                        <a href="#" class="forgot-link">Forgot PIN / Password?</a>
+                    </div>
+
                     <button type="submit" class="submit-btn">
-                        <i class="fas fa-search"></i> Check Status
+                        <i class="fas fa-sign-in-alt"></i> Continue Application
                     </button>
 
                     <div class="info-notice">
                         <i class="fas fa-info-circle"></i>
-                        <p>Make sure you enter the correct Application Number and PIN as provided when you submitted your application.</p>
+                        <p>Your session is saved automatically. You can complete your personal details, academic results, or document uploads at any time before the closing date.</p>
+                    </div>
+
+                    <div class="new-applicant-cta">
+                        Haven't started an application yet? <a href="#">Start New Application</a>
                     </div>
                 </form>
             </div>
@@ -518,8 +584,8 @@
                     <i class="far fa-question-circle"></i>
                 </div>
                 <div class="support-text">
-                    <h4>Need Help?</h4>
-                    <p>If you're having trouble checking your status, please contact our support team.</p>
+                    <h4>Need Assistance?</h4>
+                    <p>If you've forgotten your login credentials or need help completing your application, reach out to admissions.</p>
                 </div>
             </div>
             <a href="mailto:admissions@atlasuniversity.edu.za" class="support-btn">
